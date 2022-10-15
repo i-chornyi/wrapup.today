@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Message } from '@wrapup.today/api-interfaces';
 
 @Component({
-  selector: 'wrapup.today-root',
+  selector: 'wrapup-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
