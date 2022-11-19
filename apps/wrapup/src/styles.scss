@@ -1,4 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 /* You can add global styles to this file, and also import other style files */
+html {
+  height: 100%;
+}
+
 body {
+  height: 100%;
+  font-family: 'Zilla Slab', serif;
   background-color: #28252a;
+  color: #f1f1f1;
 }
