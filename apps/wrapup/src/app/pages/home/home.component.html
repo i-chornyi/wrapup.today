@@ -1,0 +1,13 @@
+<div class="h-full flex justify-center items-center">
+  <div class="w-full px-10">
+    <input
+      type="text"
+      placeholder="New project..."
+      class="w-full text-10xl bg-transparent border-0 outline-none"
+      autofocus
+      spellcheck="false"
+      [formControl]="nameControl"
+    />
+    <wrapup-button (click)="save()">Save</wrapup-button>
+  </div>
+</div>

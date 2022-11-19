@@ -1,7 +1,7 @@
 {
   "projectType": "application",
   "sourceRoot": "apps/wrapup/src",
-  "prefix": "wrapup.today",
+  "prefix": "wrapup",
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:browser",

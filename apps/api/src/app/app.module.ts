@@ -4,6 +4,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { ProjectModule } from './project/project.module';
 
 @Module({
   imports: [
@@ -17,11 +18,13 @@ import { AppService } from './app.service';
         username: configService.get('PGUSER'),
         password: configService.get('PGPASSWORD'),
         database: configService.get('PGDATABASE'),
-        entities: [],
+        autoLoadEntities: true,
         synchronize: true,
+        useUTC: true,
       }),
       inject: [ConfigService],
     }),
+    ProjectModule,
   ],
   controllers: [AppController],
   providers: [AppService],
