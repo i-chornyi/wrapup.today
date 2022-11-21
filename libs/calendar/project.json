@@ -1,0 +1,22 @@
+{
+  "projectType": "library",
+  "sourceRoot": "libs/calendar/src",
+  "prefix": "wrapup",
+  "targets": {
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/calendar"],
+      "options": {
+        "jestConfig": "libs/calendar/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": ["libs/calendar/**/*.ts", "libs/calendar/**/*.html"]
+      }
+    }
+  },
+  "tags": []
+}
