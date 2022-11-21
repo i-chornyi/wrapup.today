@@ -1,0 +1,8 @@
+<button
+  *ngIf="dayAsString"
+  class="w-10 h-10 rounded-full hover:bg-purple-hover"
+  [ngClass]="{ 'text-purple': isSelected, 'text-gray-400': !isCurrentMonth }"
+  (click)="handleDayClick()"
+>
+  {{ dayAsString }}
+</button>

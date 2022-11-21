@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ProjectService } from '../../services/project.service';
 import { ActivatedRoute } from '@angular/router';
 import { switchMap } from 'rxjs';
+import { DateTime } from 'luxon';
 
 @Component({
   selector: 'wrapup-project-detail',
@@ -20,4 +21,8 @@ export class ProjectDetailComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {}
+
+  handleDayChange(day: DateTime) {
+    console.log(day);
+  }
 }

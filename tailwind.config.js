@@ -12,7 +12,12 @@ module.exports = {
       '5xl': '3rem',
       '10xl': '6rem',
     },
-    extend: {},
+    extend: {
+      colors: {
+        purple: { DEFAULT: '#db76fd', hover: 'rgba(219,118,253,0.31)' },
+        grey: '#a6a6a6',
+      },
+    },
   },
   plugins: [],
 };

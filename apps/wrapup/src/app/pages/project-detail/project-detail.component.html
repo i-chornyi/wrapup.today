@@ -1,3 +1,10 @@
-<ng-container *ngIf="project$ | async as project">
-  <h1 class="text-xl">{{ project.name }}</h1>
-</ng-container>
+<div class="flex">
+  <div class="p-4">
+    <wrapup-calendar
+      (selectedDayChange)="handleDayChange($event)"
+    ></wrapup-calendar>
+  </div>
+  <ng-container *ngIf="project$ | async as project">
+    <h1 class="text-xl">{{ project.name }}</h1>
+  </ng-container>
+</div>
