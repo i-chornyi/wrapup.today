@@ -1,0 +1,15 @@
+<div>
+  <label class="mb-2 flex justify-between items-center" *ngIf="label">
+    <span>{{ label }}</span>
+    <span *ngIf="isOptional" class="text-grey-300 text-xs">Optional</span>
+  </label>
+
+  <input
+    class="h-9 w-full rounded-xl px-3 border text-gray-900 border-grey-100 focus:outline-2 outline-blue"
+    [type]="type"
+    [placeholder]="placeholder"
+    [disabled]="isDisabled"
+    [ngModel]="value"
+    (ngModelChange)="onChange($event)"
+  />
+</div>
