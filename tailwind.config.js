@@ -14,8 +14,29 @@ module.exports = {
     },
     extend: {
       colors: {
-        purple: { DEFAULT: '#db76fd', hover: 'rgba(219,118,253,0.31)' },
+        purple: {
+          DEFAULT: '#db76fd',
+          transparent: '#3b82f640',
+          hover: 'rgba(219,118,253,0.31)',
+        },
+        blue: {
+          DEFAULT: '#3b82f6',
+          transparent: '#3b82f640',
+          hover: '#3b82f670',
+        },
         grey: '#a6a6a6',
+      },
+      fontSize: {
+        xs: '0.75rem',
+        sm: '0.875rem',
+        base: '1rem',
+        lg: '1.125rem',
+        xl: '1.25rem',
+        '2xl': '1.5rem',
+        '3xl': '1.875rem',
+        '4xl': '2.25rem',
+        '5xl': '3rem',
+        '6xl': '4rem',
       },
     },
   },

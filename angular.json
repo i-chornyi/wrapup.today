@@ -6,6 +6,7 @@
     "api-interfaces": "libs/api-interfaces",
     "button": "libs/button",
     "calendar": "libs/calendar",
+    "input": "libs/input",
     "wrapup": "apps/wrapup",
     "wrapup-e2e": "apps/wrapup-e2e"
   }
