@@ -1,10 +1,14 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ButtonComponent } from './button.component';
+import { ElementRef } from '@angular/core';
 
 describe('ButtonComponent', () => {
   let component: ButtonComponent;
   let fixture: ComponentFixture<ButtonComponent>;
+
+  let hostElementRef: ElementRef<HTMLButtonElement>;
+  let hostElementClasses: DOMTokenList;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -14,6 +18,9 @@ describe('ButtonComponent', () => {
     fixture = TestBed.createComponent(ButtonComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
+
+    hostElementRef = fixture.elementRef;
+    hostElementClasses = hostElementRef.nativeElement.classList;
   });
 
   it('should create', () => {
@@ -22,22 +29,35 @@ describe('ButtonComponent', () => {
 
   it('should return correct color classes for the DEFAULT theme', () => {
     component.theme = 'default';
-    expect(component.color).toBe(
-      'bg-grey-50 border-grey-300 text-grey-700 hover:bg-grey-200',
-    );
+    expect(hostElementClasses).toContain('bg-gray-600');
+    expect(hostElementClasses).toContain('border-gray-600');
+    expect(hostElementClasses).toContain('border-2');
   });
 
   it('should return correct color classes for the PRIMARY theme', () => {
     component.theme = 'primary';
-    expect(component.color).toBe(
-      'bg-blue-50 border-blue text-blue hover:bg-blue-100',
-    );
+    component.ngOnInit();
+    expect(hostElementClasses).toContain('border-blue-500');
+    expect(hostElementClasses).toContain('text-grey-700');
+    expect(hostElementClasses).toContain('bg-blue');
+    expect(hostElementClasses).toContain('hover:bg-blue-hover');
   });
 
   it('should return correct color classes for the NEGATIVE theme', () => {
     component.theme = 'negative';
-    expect(component.color).toBe(
-      'bg-red-50 border-red text-red hover:bg-red-100',
-    );
+    component.ngOnInit();
+    expect(hostElementClasses).toContain('bg-red-700');
+    expect(hostElementClasses).toContain('border-red-700');
+    expect(hostElementClasses).toContain('text-red');
+  });
+
+  it('should add classes to the host element', () => {
+    expect(hostElementClasses).not.toContain('test-class-1');
+    expect(hostElementClasses).not.toContain('test-class-2');
+
+    component.addClassesToHostElement(['test-class-1', 'test-class-2']);
+
+    expect(hostElementClasses).toContain('test-class-1');
+    expect(hostElementClasses).toContain('test-class-2');
   });
 });

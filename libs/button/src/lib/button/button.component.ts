@@ -1,45 +1,78 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  Input,
+  OnInit,
+} from '@angular/core';
+
+export type ButtonSize = 's' | 'm' | 'l';
+export type ButtonTheme = 'primary' | 'default' | 'negative';
+
+const BASE_BUTTON_CLASSES: string[] = [
+  'flex',
+  'items-center',
+  'border',
+  'border-4',
+  'font-medium',
+  'whitespace-nowrap',
+  'cursor-pointer',
+  'bg-opacity-30',
+  'hover:bg-opacity-50',
+];
+
+const BUTTON_SIZE_CLASSES: { [key in ButtonSize]: string[] } = {
+  s: ['h-7', 'px-4', 'text-sm', 'rounded-lg', 'border-2'],
+  m: ['h-10', 'px-8', 'text-base', 'rounded-xl'],
+  l: ['h-14', 'px-14', 'text-lg', 'rounded-2xl'],
+};
+
+const BUTTON_THEME_CLASSES: { [key in ButtonTheme]: string[] } = {
+  default: ['bg-gray-600', 'border-gray-600', 'border-2'],
+  primary: [
+    'border-blue-500',
+    'text-grey-700',
+    'bg-blue',
+    'hover:bg-blue-hover',
+  ],
+  negative: ['bg-red-700', 'border-red-700', 'text-red'],
+};
 
 @Component({
-  selector: 'wrapup-button',
+  // eslint-disable-next-line @angular-eslint/component-selector
+  selector: '[wrapupButton]',
   templateUrl: './button.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ButtonComponent {
-  @Input() type: 'button' | 'submit' | 'reset' = 'button';
-  @Input() theme: 'primary' | 'secondary' | 'default' | 'negative' = 'default';
+export class ButtonComponent implements OnInit {
+  @Input() theme: ButtonTheme = 'default';
+  @Input() size: ButtonSize = 'm';
   @Input() disabled = false;
 
   @Input() beforeIcon!: string;
   @Input() afterIcon!: string;
 
-  constructor() {}
+  constructor(private elementRef: ElementRef<HTMLButtonElement>) {}
 
-  get classes() {
-    const classes = '';
-
-    // switch (this.type) {
-    //   case 'primary':
-    //     classes += ' border-blue bg-blue-transparent';
-    //     break;
-    // }
-
-    return classes;
+  ngOnInit() {
+    this.applyBaseClasses();
+    this.applySizeClasses();
+    this.applyThemeClasses();
   }
 
-  get color() {
-    switch (this.theme) {
-      // case 'primary':
-      //   return 'text-blue border-blue bg-blue-transparent hover:bg-blue-hover';
+  applyBaseClasses() {
+    this.addClassesToHostElement(BASE_BUTTON_CLASSES);
+  }
 
-      case 'default':
-        return 'bg-grey-50 border-grey-300 text-grey-700 hover:bg-grey-200';
-      case 'primary':
-        return 'bg-blue-50 border-blue text-blue hover:bg-blue-100';
-      case 'negative':
-        return 'bg-red-50 border-red text-red hover:bg-red-100';
-      default:
-        return '';
-    }
+  applySizeClasses() {
+    this.addClassesToHostElement(BUTTON_SIZE_CLASSES[this.size]);
+  }
+
+  applyThemeClasses() {
+    this.addClassesToHostElement(BUTTON_THEME_CLASSES[this.theme]);
+  }
+
+  addClassesToHostElement(classes: string[]) {
+    this.elementRef.nativeElement.classList.add(...classes);
   }
 }
