@@ -19,6 +19,7 @@
       "@wrapup.today/button": ["libs/button/src/index.ts"],
       "@wrapup.today/calendar": ["libs/calendar/src/index.ts"],
       "@wrapup/input": ["libs/input/src/index.ts"]
+      "@wrapup/common-constants": ["libs/common-constants/src/index.ts"],
     }
   },
   "exclude": ["node_modules", "tmp"]
