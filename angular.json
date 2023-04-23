@@ -6,6 +6,7 @@
     "api-interfaces": "libs/api-interfaces",
     "button": "libs/button",
     "calendar": "libs/calendar",
+    "heading": "libs/heading",
     "input": "libs/input",
     "common-constants": "libs/common-constants",
     "wrapup": "apps/wrapup",

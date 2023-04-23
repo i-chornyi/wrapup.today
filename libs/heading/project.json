@@ -1,0 +1,22 @@
+{
+  "projectType": "library",
+  "sourceRoot": "libs/heading/src",
+  "prefix": "wrapup",
+  "targets": {
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/heading"],
+      "options": {
+        "jestConfig": "libs/heading/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": ["libs/heading/**/*.ts", "libs/heading/**/*.html"]
+      }
+    }
+  },
+  "tags": []
+}

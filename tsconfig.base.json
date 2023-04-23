@@ -15,11 +15,12 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@wrapup.today/api-interfaces": ["libs/api-interfaces/src/index.ts"],
-      "@wrapup.today/button": ["libs/button/src/index.ts"],
-      "@wrapup.today/calendar": ["libs/calendar/src/index.ts"],
-      "@wrapup/input": ["libs/input/src/index.ts"]
-      "@wrapup/common-constants": ["libs/common-constants/src/index.ts"],
+      "@wrapup/api-interfaces": ["libs/api-interfaces/src/index.ts"],
+      "@wrapup/button": ["libs/button/src/index.ts"],
+      "@wrapup/calendar": ["libs/calendar/src/index.ts"],
+      "@wrapup/heading": ["libs/heading/src/index.ts"],
+      "@wrapup/input": ["libs/input/src/index.ts"],
+      "@wrapup/common-constants": ["libs/common-constants/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
