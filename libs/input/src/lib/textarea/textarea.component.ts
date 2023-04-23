@@ -2,17 +2,17 @@ import { Component, forwardRef, Input, OnInit } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Component({
-  selector: 'wrapup-input',
-  templateUrl: './input.component.html',
+  selector: 'wrapup-textarea',
+  templateUrl: './textarea.component.html',
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => InputComponent),
+      useExisting: forwardRef(() => TextareaComponent),
       multi: true,
     },
   ],
 })
-export class InputComponent implements OnInit, ControlValueAccessor {
+export class TextareaComponent implements OnInit, ControlValueAccessor {
   @Input() label = '';
   @Input() placeholder = '';
   @Input() type: 'text' | 'email' | 'password' = 'text';
