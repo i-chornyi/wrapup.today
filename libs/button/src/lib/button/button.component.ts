@@ -13,7 +13,6 @@ const BASE_BUTTON_CLASSES: string[] = [
   'flex',
   'items-center',
   'border',
-  'border-4',
   'font-medium',
   'whitespace-nowrap',
   'cursor-pointer',
@@ -31,11 +30,12 @@ const BUTTON_THEME_CLASSES: { [key in ButtonTheme]: string[] } = {
   default: ['bg-gray-600', 'border-gray-600', 'border-2'],
   primary: [
     'border-blue-500',
+    'border-4',
     'text-grey-700',
     'bg-blue',
     'hover:bg-blue-hover',
   ],
-  negative: ['bg-red-700', 'border-red-700', 'text-red'],
+  negative: ['bg-red-700', 'border-4', 'border-red-700', 'text-red'],
 };
 
 @Component({
