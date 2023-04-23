@@ -1,0 +1,28 @@
+<!--<div class="p-8 bg-black border border-2 border-gray-600 rounded-2xl">-->
+<div class="w-[300px] p-8 pt-6 bg-[#1e1d1f] rounded-xl">
+  <wrapup-h4 classes="mb-4">John Dow</wrapup-h4>
+
+  <div class="mb-4">
+    <p class="text-sm text-gray-400">What was done</p>
+    <p [innerText]="wrapup.done"></p>
+  </div>
+
+  <div class="mb-4">
+    <p class="text-sm text-gray-400">What is planned to do</p>
+    <p [innerHTML]="done"></p>
+  </div>
+
+  <div>
+    <p class="text-sm text-gray-400">Blockers</p>
+    <p>{{ wrapup.blockers }}</p>
+  </div>
+</div>
+
+<!--<div class="w-[300px] p-8 bg-[#1e1d1f] rounded-xl">-->
+<!--  <div class="animate-pulse">-->
+<!--    <div class="h-6 w-2/4 bg-slate-700 rounded-full mb-6"></div>-->
+<!--    <div class="h-4 bg-slate-700 rounded-full mb-4"></div>-->
+<!--    <div class="h-4 w-2/4 bg-slate-700 rounded-full mb-4"></div>-->
+<!--    <div class="h-4 w-3/4 bg-slate-700 rounded-full"></div>-->
+<!--  </div>-->
+<!--</div>-->

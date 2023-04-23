@@ -1,10 +1,59 @@
-<div class="flex">
-  <div class="p-4">
+<div class="h-[calc(100%_-_3rem)] flex gap-8 p-8">
+  <!--<div class="flex gap-8 p-8">-->
+  <div class="grow-0 shrink-0 basis-80">
     <wrapup-calendar
+      *ngIf="selectedDay$ | async as selectedDay"
+      [selectedDay]="selectedDay"
       (selectedDayChange)="handleDayChange($event)"
     ></wrapup-calendar>
   </div>
-  <ng-container *ngIf="project$ | async as project">
-    <h1 class="text-xl">{{ project.name }}</h1>
-  </ng-container>
+  <div class="h-full grow basis-auto">
+    <div class="w-full flex justify-between items-center mb-8">
+      <ng-container *ngIf="project$ | async as project">
+        <div>
+          <wrapup-h1>{{ project.name }}</wrapup-h1>
+          <p *ngIf="selectedDay$ | async as selectedDay">
+            {{ selectedDay | luxonDateToFormat: 'MMMM d, yyyy' }}
+          </p>
+        </div>
+        <button
+          wrapupButton
+          theme="primary"
+          *ngIf="selectedDay$ | async as selectedDay"
+          (click)="openAddWrapupDialog(selectedDay, project)"
+        >
+          Add wrapup
+        </button>
+      </ng-container>
+    </div>
+    <div class="flex gap-4 flex-wrap" *ngIf="wrapups$ | async as wrapups">
+      <ng-container *ngIf="isLoading$ | async; else dataList">
+        <wrapup-wrapup-card-skeleton></wrapup-wrapup-card-skeleton>
+        <wrapup-wrapup-card-skeleton></wrapup-wrapup-card-skeleton>
+        <wrapup-wrapup-card-skeleton></wrapup-wrapup-card-skeleton>
+      </ng-container>
+
+      <ng-template #dataList>
+        <wrapup-wrapup-card
+          *ngFor="let wrapup of wrapups"
+          [wrapup]="wrapup"
+        ></wrapup-wrapup-card>
+        <p *ngIf="!wrapups.length">No wrapups this day</p>
+      </ng-template>
+    </div>
+  </div>
 </div>
+
+<!--<div class="flex gap-8">-->
+<!--  <div>-->
+<!--    <button wrapupButton theme="primary" size="s">Srac</button>-->
+<!--  </div>-->
+
+<!--  <div>-->
+<!--    <button wrapupButton>Add wrapup</button>-->
+<!--  </div>-->
+
+<!--  <div>-->
+<!--    <button wrapupButton theme="negative" size="l">Add wrapup</button>-->
+<!--  </div>-->
+<!--</div>-->

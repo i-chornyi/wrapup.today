@@ -1,8 +1,11 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { ProjectDetailComponent } from './project-detail.component';
-import { CalendarModule } from '@wrapup.today/calendar';
+import { CalendarModule } from '@wrapup/calendar';
+import { ButtonModule } from '@wrapup/button';
+import { AddWrapupDialogComponent } from './add-wrapup-dialog/add-wrapup-dialog.component';
+import { OverlayModule } from '@angular/cdk/overlay';
+import { SharedModule } from '../../shared.module';
 
 const routes: Routes = [
   {
@@ -12,7 +15,14 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [ProjectDetailComponent],
-  imports: [CommonModule, RouterModule.forChild(routes), CalendarModule],
+  declarations: [ProjectDetailComponent, AddWrapupDialogComponent],
+  imports: [
+    SharedModule,
+    RouterModule.forChild(routes),
+    CalendarModule,
+    ButtonModule,
+    OverlayModule,
+    // ReactiveFormsModule,
+  ],
 })
 export class ProjectDetailModule {}

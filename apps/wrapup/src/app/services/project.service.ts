@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Project, ProjectCreation } from '@wrapup.today/api-interfaces';
+import { Project, ProjectCreation, Wrapup } from '@wrapup/api-interfaces';
 import { environment } from '../../environments/environment';
 
 @Injectable({
@@ -10,7 +10,16 @@ export class ProjectService {
   constructor(private http: HttpClient) {}
 
   getProject(id: Project['id']) {
-    return this.http.get<Project>(environment.apiHost + `/projects/${id}`);
+    return this.http.get<Project>(environment.apiHost + `/projects/${id}`, {
+      withCredentials: true,
+    });
+  }
+
+  getProjectWrapups(id: Project['id'], day: string) {
+    return this.http.get<Wrapup[]>(
+      environment.apiHost + `/projects/${id}/wrapups`,
+      { params: { day }, withCredentials: true },
+    );
   }
 
   createProject(project: ProjectCreation) {

@@ -32,6 +32,13 @@ const appRoutes: Routes = [
         (m) => m.ProjectDetailModule,
       ),
   },
+  {
+    path: 'projects',
+    title: 'My Projects',
+    canActivate: [AuthGuard],
+    loadChildren: () =>
+      import('./pages/projects/projects.module').then((m) => m.ProjectsModule),
+  },
 ];
 
 @NgModule({
