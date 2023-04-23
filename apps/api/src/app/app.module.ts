@@ -4,7 +4,10 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { ProjectModule } from './project/project.module';
+import { ProjectModule } from './resources/project/project.module';
+import { WrapupModule } from './resources/wrapup/wrapup.module';
+import { UserModule } from './resources/user/user.module';
+import { AuthModule } from './resources/auth/auth.module';
 
 @Module({
   imports: [
@@ -25,6 +28,9 @@ import { ProjectModule } from './project/project.module';
       inject: [ConfigService],
     }),
     ProjectModule,
+    WrapupModule,
+    UserModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],

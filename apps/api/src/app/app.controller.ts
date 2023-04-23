@@ -1,6 +1,6 @@
 import { Controller, Get } from '@nestjs/common';
 
-import { Message } from '@wrapup.today/api-interfaces';
+import { Message } from '@wrapup/api-interfaces';
 
 import { AppService } from './app.service';
 
