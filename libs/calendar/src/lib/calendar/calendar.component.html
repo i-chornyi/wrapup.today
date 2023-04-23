@@ -1,8 +1,22 @@
-<p class="text-center mb-6">
-  {{ currentMonth | luxonDateToFormat: 'MMMM yyyy' }}
-</p>
+<div class="flex justify-between items-center mb-6">
+  <button
+    class="w-10 h-10 rounded-full hover:bg-gray-700"
+    (click)="showPreviousMonth()"
+  >
+    <
+  </button>
+  <p>
+    {{ currentMonth | luxonDateToFormat: 'MMMM yyyy' }}
+  </p>
+  <button
+    class="w-10 h-10 rounded-full hover:bg-gray-700"
+    (click)="showNextMonth()"
+  >
+    >
+  </button>
+</div>
 
-<div class="days grid grid-cols-7">
+<div class="days grid grid-cols-7 mb-6">
   <span
     *ngFor="let dayName of dayNames"
     class="text-sm text-grey text-center mb-4"
@@ -18,17 +32,6 @@
   ></wrapup-day>
 </div>
 
-<div class="flex items-center justify-center mt-6 gap-4">
-  <button
-    class="w-10 h-10 rounded-full hover:bg-gray-700"
-    (click)="showPreviousMonth()"
-  >
-    <
-  </button>
-  <button
-    class="w-10 h-10 rounded-full hover:bg-gray-700"
-    (click)="showNextMonth()"
-  >
-    >
-  </button>
+<div class="text-center">
+  <button class="" (click)="showToday()">Today</button>
 </div>

@@ -6,8 +6,13 @@ import { HasSamePipe } from './pipes/has-same.pipe';
 import { LuxonDateToFormatPipe } from './pipes/luxon-date-to-format.pipe';
 
 @NgModule({
-  declarations: [CalendarComponent, DayComponent, HasSamePipe, LuxonDateToFormatPipe],
+  declarations: [
+    CalendarComponent,
+    DayComponent,
+    HasSamePipe,
+    LuxonDateToFormatPipe,
+  ],
   imports: [CommonModule],
-  exports: [CalendarComponent],
+  exports: [CalendarComponent, LuxonDateToFormatPipe],
 })
 export class CalendarModule {}

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { DateTime } from 'luxon';
 
 @Component({
@@ -6,17 +6,18 @@ import { DateTime } from 'luxon';
   templateUrl: './calendar.component.html',
 })
 export class CalendarComponent implements OnInit {
+  @Input() selectedDay = DateTime.local();
   @Output() selectedDayChange = new EventEmitter<DateTime>();
 
   days: DateTime[] = [];
 
-  selectedDay = DateTime.local();
-  currentMonth = DateTime.local();
+  currentMonth!: DateTime;
 
   dayNames = ['M', 'T', 'W', 'T', 'F', 'S', 'S'];
 
   ngOnInit(): void {
-    this.days = this.generateMonthDaysDataForDate(DateTime.local());
+    this.currentMonth = this.selectedDay;
+    this.days = this.generateMonthDaysDataForDate(this.currentMonth);
   }
 
   /**
@@ -50,6 +51,10 @@ export class CalendarComponent implements OnInit {
   changeMonth(newMonth: DateTime) {
     this.days = this.generateMonthDaysDataForDate(newMonth);
     this.currentMonth = newMonth;
+  }
+
+  showToday() {
+    this.handleDayClick(DateTime.local());
   }
 
   handleDayClick(day: DateTime) {
