@@ -13,3 +13,41 @@ body {
   background-color: #28252a;
   color: #f1f1f1;
 }
+
+.cdk-overlay-dark-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+}
+
+cdk-dialog-container.cdk-dialog-container {
+  position: fixed;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: fit-content;
+  min-width: 200px;
+  z-index: 1001;
+  background-color: #28252a;
+  animation: dialogIn 0.15s linear forwards;
+  transform: translate3d(100%, 0, 0);
+  will-change: transform;
+}
+
+@keyframes dialogIn {
+  to {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+a {
+  color: #76b5e9;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}

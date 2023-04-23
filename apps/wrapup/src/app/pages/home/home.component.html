@@ -1,3 +1,24 @@
+<div class="w-16">
+  <img src="/assets/wrap-up-white-logo.svg" alt="Wrap-up logo" />
+</div>
+
+<div class="text-center">
+  <p
+    class="text-8xl font-extrabold mb-8 bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-500"
+  >
+    Daily write-downs instead of daily stand-ups
+  </p>
+
+  <p class="text-3xl">
+    Sometimes it's much easier and faster to write things down than having calls
+  </p>
+
+  <p class="text-3xl">
+    Wrapup is a tool that helps you to keep track of your project progress
+    without calls
+  </p>
+</div>
+
 <div class="h-full flex justify-center items-center">
   <div class="w-full px-10">
     <input
@@ -8,6 +29,10 @@
       spellcheck="false"
       [formControl]="nameControl"
     />
-    <wrapup-button (click)="save()">Save</wrapup-button>
+    <button wrapupButton (click)="save()">Save</button>
+    <button wrapupButton (click)="openLoginDialog()">Log in</button>
+    <button wrapupButton (click)="openCreateAccountDialog()">
+      Create account
+    </button>
   </div>
 </div>

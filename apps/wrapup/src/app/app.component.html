@@ -1,2 +1,8 @@
-<a [routerLink]="['/']">Home</a>
-<router-outlet></router-outlet>
+<div class="h-full overflow-auto">
+  <div class="h-12">
+    <a [routerLink]="['/']">Home</a>
+    <a [routerLink]="['/projects']">My Projects</a>
+    <button wrapupButton (click)="logOut()">Log out</button>
+  </div>
+  <router-outlet></router-outlet>
+</div>

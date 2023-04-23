@@ -11,7 +11,7 @@ export interface CsrfToken {
   maxAge: number;
 }
 
-export interface CsrfTokenFE {
+export interface CsrfTokenLocalStorage {
   csrfToken: string;
   validUntil: string;
 }
