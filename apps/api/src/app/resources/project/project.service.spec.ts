@@ -4,6 +4,7 @@ import { getRepositoryToken } from '@nestjs/typeorm';
 import { ProjectEntity } from './entities/project.entity';
 import { CreateProjectDto } from './dto/create-project.dto';
 import { Repository } from 'typeorm';
+import { WrapupService } from '../wrapup/wrapup.service';
 
 describe('ProjectService', () => {
   let service: ProjectService;
@@ -27,6 +28,10 @@ describe('ProjectService', () => {
                 (dto: CreateProjectDto) => dto as ProjectEntity,
               ),
           },
+        },
+        {
+          provide: WrapupService,
+          useValue: {},
         },
       ],
     }).compile();

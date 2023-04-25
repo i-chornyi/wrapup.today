@@ -1,22 +1,24 @@
 import {
-  Controller,
-  Get,
-  Post,
   Body,
-  Patch,
-  Param,
+  Controller,
   Delete,
-  NotFoundException,
+  Get,
+  Header,
   HttpException,
   HttpStatus,
-  ParseIntPipe,
+  Param,
   ParseUUIDPipe,
+  Patch,
+  Post,
+  Query,
+  Req,
+  UseGuards,
 } from '@nestjs/common';
 import { ProjectService } from './project.service';
 import { UpdateProjectDto } from './dto/update-project.dto';
 import { ProjectEntity } from './entities/project.entity';
 import { CreateProjectDto } from './dto/create-project.dto';
-import { isUUID } from 'class-validator';
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 
 @Controller({ path: 'projects', version: '1' })
 export class ProjectController {
@@ -46,6 +48,32 @@ export class ProjectController {
     id: ProjectEntity['id'],
   ) {
     return this.projectService.findOne(id);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Get(':id/wrapups')
+  @Header('Access-Control-Allow-Origin', 'http://localhost:4200')
+  async getProjectWrapupsByDay(
+    @Param(
+      'id',
+      new ParseUUIDPipe({
+        exceptionFactory: () => {
+          throw new HttpException(
+            {
+              statusCode: HttpStatus.NOT_ACCEPTABLE,
+              message: 'Invalid ID format',
+            },
+            HttpStatus.NOT_ACCEPTABLE,
+          );
+        },
+      }),
+    )
+    id: ProjectEntity['id'],
+    @Query('day') day: string,
+    @Req() req,
+  ) {
+    console.log(req.cookies);
+    return this.projectService.getProjectWrapupsByDay(id, day);
   }
 
   @Patch(':id')
