@@ -1,11 +1,13 @@
 {
+  "name": "button",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "library",
   "sourceRoot": "libs/button/src",
   "prefix": "wrapup",
   "targets": {
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/button"],
+      "outputs": ["{workspaceRoot}/coverage/libs/button"],
       "options": {
         "jestConfig": "libs/button/jest.config.ts",
         "passWithNoTests": true

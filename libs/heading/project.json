@@ -1,11 +1,13 @@
 {
+  "name": "heading",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "library",
   "sourceRoot": "libs/heading/src",
   "prefix": "wrapup",
   "targets": {
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/heading"],
+      "outputs": ["{workspaceRoot}/coverage/libs/heading"],
       "options": {
         "jestConfig": "libs/heading/jest.config.ts",
         "passWithNoTests": true
