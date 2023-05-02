@@ -38,6 +38,7 @@ describe('CsrfInterceptor', () => {
       handle: () => of(NEVER),
     };
 
+    jest.spyOn(nextHandler, 'handle');
     jest.spyOn(response, 'clearCookie');
   });
 
@@ -54,7 +55,6 @@ describe('CsrfInterceptor', () => {
       [CSRF_COOKIE_KEY]:
         '26ee2457b7dd669e5d68fde379263b9498b418589233be2f5333dc6e0582f7775d82f024f7ac3e5b10e6e014e3fc6e7a',
     };
-    console.log(request);
     await firstValueFrom(interceptor.intercept(context, nextHandler));
     expect(nextHandler.handle).toHaveBeenCalled();
     expect(response.clearCookie).not.toHaveBeenCalled();

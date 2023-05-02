@@ -4,7 +4,7 @@ import { ProjectDetailComponent } from './project-detail.component';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { CommonModule } from '@angular/common';
 import { RouterTestingModule } from '@angular/router/testing';
-import { CalendarModule } from '@wrapup.today/calendar';
+import { CalendarModule } from '@wrapup/calendar';
 
 describe('ProjectDetailComponent', () => {
   let component: ProjectDetailComponent;

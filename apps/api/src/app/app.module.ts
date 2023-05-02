@@ -3,7 +3,6 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 
 import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { ProjectModule } from './resources/project/project.module';
 import { WrapupModule } from './resources/wrapup/wrapup.module';
 import { UserModule } from './resources/user/user.module';
@@ -33,6 +32,5 @@ import { AuthModule } from './resources/auth/auth.module';
     AuthModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
 })
 export class AppModule {}

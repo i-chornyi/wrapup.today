@@ -15,6 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@wrapup/api": ["apps/api/src"],
       "@wrapup/api-interfaces": ["libs/api-interfaces/src/index.ts"],
       "@wrapup/button": ["libs/button/src/index.ts"],
       "@wrapup/calendar": ["libs/calendar/src/index.ts"],

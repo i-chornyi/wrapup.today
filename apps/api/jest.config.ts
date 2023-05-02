@@ -1,3 +1,6 @@
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+require('dotenv').config({ path: '.env.test' });
+
 /* eslint-disable */
 export default {
   displayName: 'api',
@@ -14,4 +17,5 @@ export default {
   },
   moduleFileExtensions: ['ts', 'js', 'html'],
   coverageDirectory: '../../coverage/apps/api',
+  testTimeout: 20000,
 };
