@@ -7,6 +7,7 @@ import { ProjectModule } from './resources/project/project.module';
 import { WrapupModule } from './resources/wrapup/wrapup.module';
 import { UserModule } from './resources/user/user.module';
 import { AuthModule } from './resources/auth/auth.module';
+import { CoreModule } from './core.module';
 
 @Module({
   imports: [
@@ -26,6 +27,7 @@ import { AuthModule } from './resources/auth/auth.module';
       }),
       inject: [ConfigService],
     }),
+    CoreModule,
     ProjectModule,
     WrapupModule,
     UserModule,

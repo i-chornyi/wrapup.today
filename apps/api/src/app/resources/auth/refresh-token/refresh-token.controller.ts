@@ -12,7 +12,6 @@ import { JwtAuthGuard } from '../jwt-auth.guard';
 import { RefreshTokenGuard } from '../refresh-token.guard';
 import { Request, Response } from 'express';
 import {
-  clearCsrfTokenCookie,
   clearTokenCookies,
   getCsrfTokenMaxAge,
   retrieveAccessAndRefreshTokensFromCookies,

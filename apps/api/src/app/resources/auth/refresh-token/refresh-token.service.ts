@@ -18,10 +18,13 @@ export class RefreshTokenService {
   ) {}
 
   async createToken(userId: UserEntity['id']) {
-    const token = this.generateJWTFromUserEntity({
-      id: userId,
-      email: undefined,
-    });
+    const token = this.generateJWTFromUserEntity(
+      {
+        id: userId,
+        email: undefined,
+      },
+      60 * 60 * 24 * 7,
+    );
 
     const newRefreshToken = this.refreshTokensRepository.create({
       token,
@@ -73,9 +76,12 @@ export class RefreshTokenService {
     return { accessToken, refreshToken };
   }
 
-  generateJWTFromUserEntity(user: Pick<UserEntity, 'id' | 'email'>): string {
+  generateJWTFromUserEntity(
+    user: Pick<UserEntity, 'id' | 'email'>,
+    expiresIn = 20 * 60,
+  ): string {
     const payload = { email: user.email, userId: user.id };
 
-    return this.jwtService.sign(payload);
+    return this.jwtService.sign(payload, { expiresIn });
   }
 }
