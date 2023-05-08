@@ -8,6 +8,7 @@ import { WrapupModule } from './resources/wrapup/wrapup.module';
 import { UserModule } from './resources/user/user.module';
 import { AuthModule } from './resources/auth/auth.module';
 import { CoreModule } from './core.module';
+import { MailModule } from './resources/mail/mail.module';
 
 @Module({
   imports: [
@@ -32,6 +33,7 @@ import { CoreModule } from './core.module';
     WrapupModule,
     UserModule,
     AuthModule,
+    MailModule,
   ],
   controllers: [AppController],
 })
