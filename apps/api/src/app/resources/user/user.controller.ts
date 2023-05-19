@@ -31,7 +31,10 @@ export class UserController {
     @Res() res: Response,
     @Body() body: CreateUserByEmailAndPasswordDto,
   ) {
-    const tokens = await this.userService.createUserByEmailAndPassword(body);
+    const tokens = await this.userService.createUserByEmailAndPassword(
+      body,
+      res,
+    );
 
     if (tokens) {
       setAccessAndRefreshTokensToCookies(res, tokens);

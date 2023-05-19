@@ -13,6 +13,8 @@ import {
 } from './dto/create-user.dto';
 import { AuthService } from '../auth/auth.service';
 import { UserEntity } from './entities/user.entity';
+import { MailService } from '../mail/mail.service';
+import { Response } from 'express';
 
 @Injectable()
 export class UserService {
@@ -21,6 +23,7 @@ export class UserService {
     private usersRepository: Repository<UserEntity>,
     @Inject(forwardRef(() => AuthService))
     private authService: AuthService,
+    private mailService: MailService,
   ) {}
 
   async findOneById(id: UserEntity['id']): Promise<UserEntity | undefined> {
@@ -33,7 +36,10 @@ export class UserService {
     return this.usersRepository.findOne({ where: { email } });
   }
 
-  async createUserByEmailAndPassword(body: CreateUserByEmailAndPasswordDto) {
+  async createUserByEmailAndPassword(
+    body: CreateUserByEmailAndPasswordDto,
+    res?: Response,
+  ) {
     const possibleExistingUser = await this.findOneByEmail(body.email);
 
     if (possibleExistingUser) {
@@ -51,10 +57,19 @@ export class UserService {
     });
     const newUser = await this.usersRepository.save(createdUser);
 
+    if (res && res.statusCode === 201) {
+      res.on('finish', () => {
+        this.mailService.sendUserConfirmation(newUser);
+      });
+    }
+
     return this.authService.login(newUser);
   }
 
-  async createUserByGoogleData(body: CreateUserByGoogleDataDto) {
+  async createUserByGoogleData(
+    body: CreateUserByGoogleDataDto,
+    res?: Response,
+  ) {
     await this.checkIfPossibleUserExists(body.email);
 
     const createdUser = await this.usersRepository.create({
@@ -63,6 +78,12 @@ export class UserService {
       lastName: body.lastName,
       email: body.email,
     });
+
+    if (res && res.statusCode === 201) {
+      res.on('finish', () => {
+        this.mailService.sendUserConfirmation(createdUser);
+      });
+    }
 
     return this.usersRepository.save(createdUser);
   }
