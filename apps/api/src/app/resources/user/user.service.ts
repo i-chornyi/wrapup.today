@@ -56,7 +56,6 @@ export class UserService {
       .set({
         firstName: body.firstName,
         lastName: body.lastName,
-        isProfileComplete: !!body.firstName,
       })
       .where('id = :id', { id })
       .execute();

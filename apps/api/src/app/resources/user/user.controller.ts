@@ -1,5 +1,6 @@
 import {
   Body,
+  ClassSerializerInterceptor,
   Controller,
   Get,
   HttpException,
@@ -9,6 +10,7 @@ import {
   Req,
   Res,
   UseGuards,
+  UseInterceptors,
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserByEmailAndPasswordDto } from './dto/create-user.dto';
@@ -18,6 +20,7 @@ import { AppRequest } from '@wrapup/api-interfaces';
 import { setAccessAndRefreshTokensToCookies } from '../auth/utils/cookies.util';
 import { UpdateUserDto } from './dto/update-user.dto';
 
+@UseInterceptors(ClassSerializerInterceptor)
 @Controller({ path: 'users', version: '1' })
 export class UserController {
   constructor(private userService: UserService) {}

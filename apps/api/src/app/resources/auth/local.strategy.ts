@@ -13,7 +13,9 @@ export class LocalStrategy extends PassportStrategy(Strategy) {
   async validate(
     email: string,
     password: string,
-  ): Promise<Omit<UserEntity, 'password' | 'hashPassword'>> {
+  ): Promise<
+    Omit<UserEntity, 'password' | 'hashPassword' | 'isProfileComplete'>
+  > {
     const user = await this.authService.validateUser(email, password);
     if (!user) {
       throw new HttpException(

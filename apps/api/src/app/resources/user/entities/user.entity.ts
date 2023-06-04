@@ -2,12 +2,11 @@ import {
   BeforeInsert,
   Column,
   Entity,
-  JoinColumn,
   OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { Exclude } from 'class-transformer';
+import { Exclude, Expose } from 'class-transformer';
 import { hash } from 'bcryptjs';
 import { RefreshTokenEntity } from '../../auth/refresh-token/entities/refresh-token.entity';
 import { AvatarSettingEntity } from '../../avatar-settings/entities/avatar-setting.entity';
@@ -43,14 +42,16 @@ export class UserEntity {
   @OneToOne(() => AvatarSettingEntity, (avatar) => avatar.user)
   avatar: AvatarSettingEntity;
 
-  @Column({ default: false })
-  isProfileComplete: boolean;
-
   @Column({ type: 'timestamptz', default: () => 'CURRENT_TIMESTAMP' })
   createdAt: Date;
 
   @Column({ type: 'timestamptz', default: () => 'CURRENT_TIMESTAMP' })
   updatedAt: Date;
+
+  @Expose()
+  get isProfileComplete(): boolean {
+    return !!this.firstName;
+  }
 
   @BeforeInsert()
   async hashPassword() {
