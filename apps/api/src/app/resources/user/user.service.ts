@@ -15,6 +15,8 @@ import { AuthService } from '../auth/auth.service';
 import { UserEntity } from './entities/user.entity';
 import { MailService } from '../mail/mail.service';
 import { Response } from 'express';
+import { AvatarSettingsService } from '../avatar-settings/avatar-settings.service';
+import { UpdateUserDto } from './dto/update-user.dto';
 
 @Injectable()
 export class UserService {
@@ -24,16 +26,40 @@ export class UserService {
     @Inject(forwardRef(() => AuthService))
     private authService: AuthService,
     private mailService: MailService,
+    @Inject(forwardRef(() => AvatarSettingsService))
+    private avatarSettingsService: AvatarSettingsService,
   ) {}
 
   async findOneById(id: UserEntity['id']): Promise<UserEntity | undefined> {
-    return this.usersRepository.findOneOrFail({ where: { id } });
+    return this.usersRepository.findOneOrFail({
+      where: { id },
+    });
   }
 
   async findOneByEmail(
     email: UserEntity['email'],
   ): Promise<UserEntity | undefined> {
     return this.usersRepository.findOne({ where: { email } });
+  }
+
+  getProfile(id: UserEntity['id']): Promise<UserEntity> {
+    return this.usersRepository.findOneOrFail({
+      where: { id },
+      relations: ['avatar'],
+    });
+  }
+
+  async updateProfile(id: UserEntity['id'], body: UpdateUserDto): Promise<any> {
+    return this.usersRepository
+      .createQueryBuilder('users')
+      .update()
+      .set({
+        firstName: body.firstName,
+        lastName: body.lastName,
+        isProfileComplete: !!body.firstName,
+      })
+      .where('id = :id', { id })
+      .execute();
   }
 
   async createUserByEmailAndPassword(
@@ -57,13 +83,19 @@ export class UserService {
     });
     const newUser = await this.usersRepository.save(createdUser);
 
+    const userAvatar = await this.avatarSettingsService.create(newUser);
+
+    newUser.avatar = userAvatar;
+
+    const newUserWithAvatar = await this.usersRepository.save(newUser);
+
     if (res && res.statusCode === 201) {
       res.on('finish', () => {
-        this.mailService.sendUserConfirmation(newUser);
+        this.mailService.sendUserConfirmation(newUserWithAvatar);
       });
     }
 
-    return this.authService.login(newUser);
+    return this.authService.login(newUserWithAvatar);
   }
 
   async createUserByGoogleData(
@@ -85,7 +117,13 @@ export class UserService {
       });
     }
 
-    return this.usersRepository.save(createdUser);
+    const newUser = await this.usersRepository.save(createdUser);
+
+    const userAvatar = await this.avatarSettingsService.create(newUser);
+
+    newUser.avatar = userAvatar;
+
+    return this.usersRepository.save(newUser);
   }
 
   async checkIfPossibleUserExists(email: UserEntity['email']) {

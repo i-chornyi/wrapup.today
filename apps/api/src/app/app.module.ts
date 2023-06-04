@@ -9,6 +9,7 @@ import { UserModule } from './resources/user/user.module';
 import { AuthModule } from './resources/auth/auth.module';
 import { CoreModule } from './core.module';
 import { MailModule } from './resources/mail/mail.module';
+import { AvatarSettingsModule } from './resources/avatar-settings/avatar-settings.module';
 
 @Module({
   imports: [
@@ -34,6 +35,7 @@ import { MailModule } from './resources/mail/mail.module';
     UserModule,
     AuthModule,
     MailModule,
+    AvatarSettingsModule,
   ],
   controllers: [AppController],
 })

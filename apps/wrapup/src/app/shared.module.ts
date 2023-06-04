@@ -11,6 +11,7 @@ import { InputModule } from '@wrapup/input';
 import { CreateAccountDialogComponent } from './components/create-account-dialog/create-account-dialog.component';
 import { ButtonModule } from '@wrapup/button';
 import { GoogleSignInButtonComponent } from './components/google-sign-in-button/google-sign-in-button.component';
+import { AvatarComponent } from './components/avatar/avatar.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { GoogleSignInButtonComponent } from './components/google-sign-in-button/
     LoginDialogComponent,
     CreateAccountDialogComponent,
     GoogleSignInButtonComponent,
+    AvatarComponent,
   ],
 
   imports: [
@@ -34,6 +36,7 @@ import { GoogleSignInButtonComponent } from './components/google-sign-in-button/
     WrapupCardComponent,
     WrapupCardSkeletonComponent,
     LoginDialogComponent,
+    AvatarComponent,
 
     CommonModule,
     ReactiveFormsModule,

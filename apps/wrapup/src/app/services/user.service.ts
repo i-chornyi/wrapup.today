@@ -14,4 +14,16 @@ export class UserService {
       withCredentials: true,
     });
   }
+
+  getMyProfile() {
+    return this.http.get(environment.apiHost + '/users/profile', {
+      withCredentials: true,
+    });
+  }
+
+  updateMyProfile(body: { firstName: string; lastName?: string }) {
+    return this.http.put(environment.apiHost + '/users/profile', body, {
+      withCredentials: true,
+    });
+  }
 }

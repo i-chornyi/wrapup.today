@@ -5,6 +5,7 @@ import {
   HttpException,
   HttpStatus,
   Post,
+  Put,
   Req,
   Res,
   UseGuards,
@@ -15,6 +16,7 @@ import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { Response } from 'express';
 import { AppRequest } from '@wrapup/api-interfaces';
 import { setAccessAndRefreshTokensToCookies } from '../auth/utils/cookies.util';
+import { UpdateUserDto } from './dto/update-user.dto';
 
 @Controller({ path: 'users', version: '1' })
 export class UserController {
@@ -23,7 +25,13 @@ export class UserController {
   @UseGuards(JwtAuthGuard)
   @Get('profile')
   getProfile(@Req() req: AppRequest) {
-    return this.userService.findOneById(req.user.userId);
+    return this.userService.getProfile(req.user.userId);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Put('profile')
+  updateProfile(@Req() req: AppRequest, @Body() body: UpdateUserDto) {
+    return this.userService.updateProfile(req.user.userId, body);
   }
 
   @Post('')
