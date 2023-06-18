@@ -8,6 +8,8 @@ import { AuthGuard } from './guards/auth.guard';
 import { RefreshTokenInterceptor } from './interceptors/refresh-token.interceptor';
 import { CsrfTokenInterceptor } from './interceptors/csrf-token.interceptor';
 import { SharedModule } from './shared.module';
+import { provideSvgIcons, SvgIconComponent } from '@ngneat/svg-icon';
+import { chevronDownIcon } from './svg/chevron-down';
 
 const appRoutes: Routes = [
   {
@@ -48,8 +50,10 @@ const appRoutes: Routes = [
     HttpClientModule,
     RouterModule.forRoot(appRoutes),
     SharedModule,
+    SvgIconComponent,
   ],
   providers: [
+    provideSvgIcons([chevronDownIcon]),
     {
       provide: HTTP_INTERCEPTORS,
       useClass: RefreshTokenInterceptor,

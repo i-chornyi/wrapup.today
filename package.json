@@ -8,11 +8,28 @@
     "start": "nx serve",
     "start:api": "nx serve api",
     "build": "nx build",
+    "svg": "svg-generator",
     "test": "nx test",
     "test:watch": "nx test --watch",
     "test:calendar:watch": "nx test calendar --watch",
     "test:api:unit": "nx test api --test-path-pattern=src/app/*",
     "test:api:integration": "nx test api --test-path-pattern=tests/*"
+  },
+  "svgGenerator": {
+    "outputPath": "apps/wrapup/src/app/svg",
+    "srcPath": "apps/wrapup/src/assets/svg",
+    "svgoConfig": {
+      "plugins": [
+        "removeDimensions",
+        "cleanupAttrs",
+        {
+          "name": "convertColors",
+          "params": {
+            "currentColor": true
+          }
+        }
+      ]
+    }
   },
   "private": true,
   "dependencies": {
@@ -34,6 +51,7 @@
     "@nestjs/passport": "^9.0.0",
     "@nestjs/platform-express": "^9.0.0",
     "@nestjs/typeorm": "^9.0.1",
+    "@ngneat/svg-icon": "^7.0.0",
     "@nrwl/angular": "15.9.2",
     "@types/bcryptjs": "^2.4.2",
     "@types/uuid": "^9.0.0",
@@ -72,6 +90,7 @@
     "@faker-js/faker": "^7.6.0",
     "@nestjs/schematics": "^9.0.0",
     "@nestjs/testing": "^9.0.0",
+    "@ngneat/svg-generator": "^7.0.0",
     "@nrwl/cli": "15.9.2",
     "@nrwl/cypress": "15.9.2",
     "@nrwl/eslint-plugin-nx": "15.9.2",
