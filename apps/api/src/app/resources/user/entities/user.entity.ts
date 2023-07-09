@@ -8,6 +8,7 @@ import {
 } from 'typeorm';
 import { Exclude, Expose } from 'class-transformer';
 import { hash } from 'bcryptjs';
+import { ProjectEntity } from '../../project/entities/project.entity';
 import { RefreshTokenEntity } from '../../auth/refresh-token/entities/refresh-token.entity';
 import { AvatarSettingEntity } from '../../avatar-settings/entities/avatar-setting.entity';
 
@@ -32,6 +33,9 @@ export class UserEntity {
   @Column({ nullable: true, default: null })
   @Exclude()
   password: string;
+
+  @OneToMany(() => ProjectEntity, (project) => project.owner)
+  projects: ProjectEntity[];
 
   @OneToMany(() => RefreshTokenEntity, (refreshToken) => refreshToken.user, {
     onDelete: 'CASCADE',

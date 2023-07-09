@@ -11,6 +11,8 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateProjectDto } from './dto/create-project.dto';
 import { WrapupService } from '../wrapup/wrapup.service';
+import { UserEntity } from '../user/entities/user.entity';
+import { UserService } from '../user/user.service';
 
 @Injectable()
 export class ProjectService {
@@ -19,10 +21,15 @@ export class ProjectService {
     private projectsRepository: Repository<ProjectEntity>,
     @Inject(forwardRef(() => WrapupService))
     private wrapupService: WrapupService,
+    private userService: UserService,
   ) {}
 
-  create(createProjectDto: CreateProjectDto) {
-    const newProject = this.projectsRepository.create(createProjectDto);
+  async create(createProjectDto: CreateProjectDto, ownerId: UserEntity['id']) {
+    const user = await this.userService.findOneById(ownerId);
+    const newProject = this.projectsRepository.create({
+      ...createProjectDto,
+      owner: user,
+    });
     return this.projectsRepository.save(newProject);
   }
 
@@ -40,6 +47,15 @@ export class ProjectService {
     }
 
     return project;
+  }
+
+  async findAll(ownerId: UserEntity['id']) {
+    const projects = await this.projectsRepository
+      .createQueryBuilder('project')
+      .where('project.ownerId = :ownerId', { ownerId })
+      .getMany();
+
+    return projects;
   }
 
   getProjectWrapupsByDay(projectId: ProjectEntity['id'], day: string) {

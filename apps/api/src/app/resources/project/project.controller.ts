@@ -3,7 +3,6 @@ import {
   Controller,
   Delete,
   Get,
-  Header,
   HttpException,
   HttpStatus,
   Param,
@@ -19,14 +18,22 @@ import { UpdateProjectDto } from './dto/update-project.dto';
 import { ProjectEntity } from './entities/project.entity';
 import { CreateProjectDto } from './dto/create-project.dto';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
+import { AppRequest } from '@wrapup/api-interfaces';
 
 @Controller({ path: 'projects', version: '1' })
 export class ProjectController {
   constructor(private readonly projectService: ProjectService) {}
 
   @Post()
-  create(@Body() createProjectDto: CreateProjectDto) {
-    return this.projectService.create(createProjectDto);
+  @UseGuards(JwtAuthGuard)
+  create(@Body() createProjectDto: CreateProjectDto, @Req() req: AppRequest) {
+    return this.projectService.create(createProjectDto, req.user.userId);
+  }
+
+  @Get()
+  @UseGuards(JwtAuthGuard)
+  async find(@Req() req: AppRequest) {
+    return this.projectService.findAll(req.user.userId);
   }
 
   @Get(':id')
@@ -50,9 +57,9 @@ export class ProjectController {
     return this.projectService.findOne(id);
   }
 
-  @UseGuards(JwtAuthGuard)
   @Get(':id/wrapups')
-  @Header('Access-Control-Allow-Origin', 'http://localhost:4200')
+  @UseGuards(JwtAuthGuard)
+  // @Header('Access-Control-Allow-Origin', 'http://localhost:4200')
   async getProjectWrapupsByDay(
     @Param(
       'id',
