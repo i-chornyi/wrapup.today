@@ -9,6 +9,12 @@ import { environment } from '../../environments/environment';
 export class ProjectService {
   constructor(private http: HttpClient) {}
 
+  getProjects() {
+    return this.http.get<Project[]>(environment.apiHost + `/projects`, {
+      withCredentials: true,
+    });
+  }
+
   getProject(id: Project['id']) {
     return this.http.get<Project>(environment.apiHost + `/projects/${id}`, {
       withCredentials: true,
@@ -23,6 +29,8 @@ export class ProjectService {
   }
 
   createProject(project: ProjectCreation) {
-    return this.http.post<Project>(environment.apiHost + `/projects`, project);
+    return this.http.post<Project>(environment.apiHost + `/projects`, project, {
+      withCredentials: true,
+    });
   }
 }

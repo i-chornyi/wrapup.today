@@ -1,0 +1,28 @@
+<div class="h-full overflow-auto p-12 w-112">
+  <div class="mb-16">
+    <img
+      class="w-1/2 mx-auto"
+      src="/assets/wrap-up-white-logo.svg"
+      alt="Wrapup logo"
+    />
+  </div>
+
+  <wrapup-h2 classes="mb-12">New project</wrapup-h2>
+
+  <form
+    class="flex flex-col gap-2"
+    [formGroup]="newProjectForm"
+    (ngSubmit)="save()"
+  >
+    <wrapup-input
+      formControlName="name"
+      label="Project name"
+      placeholder="Project name..."
+    ></wrapup-input>
+
+    <div class="flex justify-end items-center gap-4 mt-8">
+      <button type="button" wrapupButton (click)="close()">Cancel</button>
+      <button wrapupButton theme="primary">Create</button>
+    </div>
+  </form>
+</div>

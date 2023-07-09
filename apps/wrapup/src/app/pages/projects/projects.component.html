@@ -1,1 +1,11 @@
-<p>projects works!</p>
+<wrapup-h1>Projects</wrapup-h1>
+
+<button wrapupButton (click)="openAddProjectDialog()">+</button>
+
+<div>
+  <wrapup-project-card
+    *ngFor="let project of projects$ | async"
+    [project]="project"
+  >
+  </wrapup-project-card>
+</div>
