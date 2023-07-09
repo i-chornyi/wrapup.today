@@ -1,12 +1,18 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { HttpClient } from '@angular/common/http';
-import { UserCreation } from '@wrapup/api-interfaces';
+import { UserCreation, UserProfile } from '@wrapup/api-interfaces';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
+  private _currentUser$ = new BehaviorSubject<UserProfile | undefined>(
+    undefined,
+  );
+  currentUser$ = this._currentUser$.asObservable();
+
   constructor(private http: HttpClient) {}
 
   createAccount(userData: UserCreation) {
@@ -15,8 +21,8 @@ export class UserService {
     });
   }
 
-  getMyProfile() {
-    return this.http.get(environment.apiHost + '/users/profile', {
+  getMyProfile(): Observable<UserProfile> {
+    return this.http.get<UserProfile>(environment.apiHost + '/users/profile', {
       withCredentials: true,
     });
   }
@@ -25,5 +31,9 @@ export class UserService {
     return this.http.put(environment.apiHost + '/users/profile', body, {
       withCredentials: true,
     });
+  }
+
+  setCurrentUser(user: UserProfile) {
+    this._currentUser$.next(user);
   }
 }

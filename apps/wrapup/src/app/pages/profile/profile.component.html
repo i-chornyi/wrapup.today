@@ -1,0 +1,7 @@
+<div>
+  <form [formGroup]="updateProfileForm" (ngSubmit)="updateProfile()">
+    <wrapup-input type="text" formControlName="firstName"></wrapup-input>
+    <wrapup-input type="text" formControlName="lastName"></wrapup-input>
+    <button wrapupButton>Update profile</button>
+  </form>
+</div>

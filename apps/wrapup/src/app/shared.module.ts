@@ -11,7 +11,8 @@ import { InputModule } from '@wrapup/input';
 import { CreateAccountDialogComponent } from './components/create-account-dialog/create-account-dialog.component';
 import { ButtonModule } from '@wrapup/button';
 import { GoogleSignInButtonComponent } from './components/google-sign-in-button/google-sign-in-button.component';
-import { AvatarComponent } from './components/avatar/avatar.component';
+import { UserInitialsPipe } from './pipes/user-initials.pipe';
+import { UserNamePipe } from './pipes/user-name.pipe';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { AvatarComponent } from './components/avatar/avatar.component';
     LoginDialogComponent,
     CreateAccountDialogComponent,
     GoogleSignInButtonComponent,
-    AvatarComponent,
+    UserInitialsPipe,
+    UserNamePipe,
   ],
 
   imports: [
@@ -36,7 +38,8 @@ import { AvatarComponent } from './components/avatar/avatar.component';
     WrapupCardComponent,
     WrapupCardSkeletonComponent,
     LoginDialogComponent,
-    AvatarComponent,
+    UserInitialsPipe,
+    UserNamePipe,
 
     CommonModule,
     ReactiveFormsModule,

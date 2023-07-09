@@ -1,5 +1,10 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { AvatarComponent } from './avatar.component';
+import { UserInitialsPipe } from '../../pipes/user-initials.pipe';
+import {
+  generateFakeUserProfile,
+  getTestIdDataAttribute,
+} from '@wrapup/test-utils';
 
 describe('AvatarComponent', () => {
   let component: AvatarComponent;
@@ -7,15 +12,22 @@ describe('AvatarComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [AvatarComponent],
+      declarations: [AvatarComponent, UserInitialsPipe],
     }).compileComponents();
 
     fixture = TestBed.createComponent(AvatarComponent);
     component = fixture.componentInstance;
-    component.avatarSettings = {
-      colors: ['#000', '#111', '#222'],
-      angle: 10,
-    };
+    fixture.componentRef.setInput(
+      'userProfile',
+      generateFakeUserProfile({
+        firstName: 'John',
+        lastName: 'Doe',
+        avatar: {
+          angle: 10,
+          colors: ['#000', '#111', '#222'],
+        },
+      }),
+    );
     fixture.detectChanges();
   });
 
@@ -29,19 +41,12 @@ describe('AvatarComponent', () => {
     );
   });
 
-  it('should not have initials if none provided', () => {
-    expect(component.initials).toBeFalsy();
-  });
-
   it('should have initials', () => {
-    fixture.componentRef.setInput('initials', 'aa');
-    fixture.detectChanges();
-
     const initialsElement = fixture.debugElement.nativeElement.querySelector(
-      '[data-test-id="avatar-initials"]',
+      getTestIdDataAttribute('avatar-initials'),
     );
 
     expect(initialsElement).toBeTruthy();
-    expect(initialsElement.textContent.trim()).toEqual('AA');
+    expect(initialsElement.textContent.trim()).toEqual('JD');
   });
 });

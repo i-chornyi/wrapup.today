@@ -1,0 +1,24 @@
+<a
+  *ngIf="url?.length; else buttonElement"
+  [routerLink]="url"
+  class="block text-slate-50 rounded-xl p-3 cursor-pointer hover:no-underline hover:bg-zinc-700"
+  data-close-panel-on-click
+  data-test-id="panel-item-link"
+>
+  <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
+</a>
+
+<ng-template #buttonElement>
+  <button
+    (click)="handleItemClick()"
+    class="block w-full text-start text-slate-50 rounded-xl p-3 cursor-pointer hover:no-underline hover:bg-zinc-700"
+    data-close-panel-on-click
+    data-test-id="panel-item-button"
+  >
+    <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
+  </button>
+</ng-template>
+
+<ng-template #contentTemplate>
+  <ng-content></ng-content>
+</ng-template>

@@ -15,7 +15,7 @@ export class AvatarSettingEntity {
   id: string;
 
   @Column()
-  angle: string;
+  angle: number;
 
   @Column({
     type: 'varchar',

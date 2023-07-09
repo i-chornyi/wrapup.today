@@ -19,7 +19,7 @@ export class AvatarSettingsService {
     const newAvatarSettings = generateAvatarSettings();
 
     const newAvatar: AvatarSettingEntity = this.avatarSettingRepository.create({
-      angle: newAvatarSettings.angle.toString(),
+      angle: newAvatarSettings.angle,
       colors: newAvatarSettings.colors,
       user,
     });

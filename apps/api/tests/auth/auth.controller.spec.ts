@@ -1,13 +1,11 @@
 import * as supertest from 'supertest';
 import { INestApplication } from '@nestjs/common';
 import { createTestingModule } from '../application-builder';
-import {
-  generateFakeUser,
-  seedFakeUser,
-} from '../fake-data-generators/users.generator';
+import { seedFakeUser } from '../seed-utils/users';
 import { CSRF_COOKIE_KEY, CSRF_HEADER_KEY } from '@wrapup/common-constants';
 import { UserService } from '../../src/app/resources/user/user.service';
 import { generateCsrfToken } from '../../src/app/resources/auth/utils/csrf-token.util';
+import { generateFakeDataForUserCreation } from '@wrapup/test-utils';
 
 describe('AuthController', () => {
   let testApp: INestApplication;
@@ -18,7 +16,7 @@ describe('AuthController', () => {
 
   describe('/login (POST)', () => {
     it('should successfully login and return csrf token', async () => {
-      const newUser = generateFakeUser();
+      const newUser = generateFakeDataForUserCreation();
 
       await seedFakeUser(newUser, testApp.get(UserService));
 
@@ -53,7 +51,7 @@ describe('AuthController', () => {
     });
 
     it('should return 401 for bad login credentials', async () => {
-      const newUser = generateFakeUser();
+      const newUser = generateFakeDataForUserCreation();
 
       const app = supertest(testApp.getHttpServer());
 

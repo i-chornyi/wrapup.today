@@ -17,6 +17,7 @@ import { MailService } from '../mail/mail.service';
 import { Response } from 'express';
 import { AvatarSettingsService } from '../avatar-settings/avatar-settings.service';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { UserProfile } from '@wrapup/api-interfaces';
 
 @Injectable()
 export class UserService {
@@ -42,11 +43,25 @@ export class UserService {
     return this.usersRepository.findOne({ where: { email } });
   }
 
-  getProfile(id: UserEntity['id']): Promise<UserEntity> {
-    return this.usersRepository.findOneOrFail({
+  async getProfile(id: UserEntity['id']): Promise<UserProfile> {
+    const userProfile = await this.usersRepository.findOneOrFail({
       where: { id },
       relations: ['avatar'],
     });
+
+    return {
+      id: userProfile.id,
+      email: userProfile.email,
+      firstName: userProfile.firstName,
+      lastName: userProfile.lastName,
+      isProfileComplete: userProfile.isProfileComplete,
+      createdAt: userProfile.createdAt.toISOString(),
+      updatedAt: userProfile.updatedAt.toISOString(),
+      avatar: {
+        angle: userProfile.avatar.angle,
+        colors: userProfile.avatar.colors,
+      },
+    } as UserProfile;
   }
 
   async updateProfile(id: UserEntity['id'], body: UpdateUserDto): Promise<any> {

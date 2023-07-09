@@ -3,25 +3,35 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { AuthCredentials, CsrfToken } from '@wrapup/api-interfaces';
 import { Router } from '@angular/router';
-import { finalize, tap } from 'rxjs';
+import { BehaviorSubject, finalize, tap } from 'rxjs';
 import { CsrfService } from './csrf.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
+  private _isUserLoggedIn$ = new BehaviorSubject(false);
+  isUserLoggedIn$ = this._isUserLoggedIn$.asObservable();
+
   constructor(
     private http: HttpClient,
     private router: Router,
     private csrfService: CsrfService,
   ) {}
 
+  setIsUserLoggedIn(value: boolean): void {
+    this._isUserLoggedIn$.next(value);
+  }
+
   logIn(credentials: AuthCredentials) {
     return this.http
       .post<CsrfToken>(environment.apiHost + '/auth/login', credentials, {
         withCredentials: true,
       })
-      .pipe(tap((token) => this.csrfService.setCsrfTokenToLocalStorage(token)));
+      .pipe(
+        tap((token) => this.csrfService.setCsrfTokenToLocalStorage(token)),
+        tap(() => this.setIsUserLoggedIn(true)),
+      );
   }
 
   checkToken() {
@@ -62,6 +72,7 @@ export class AuthService {
       )
       .pipe(
         tap((token) => this.csrfService.setCsrfTokenToLocalStorage(token)),
+        tap(() => this.setIsUserLoggedIn(false)),
         finalize(() => this.router.navigate(['/'])),
       );
   }

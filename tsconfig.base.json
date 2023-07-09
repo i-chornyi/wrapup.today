@@ -21,7 +21,8 @@
       "@wrapup/calendar": ["libs/calendar/src/index.ts"],
       "@wrapup/common-constants": ["libs/common-constants/src/index.ts"],
       "@wrapup/heading": ["libs/heading/src/index.ts"],
-      "@wrapup/input": ["libs/input/src/index.ts"]
+      "@wrapup/input": ["libs/input/src/index.ts"],
+      "@wrapup/test-utils": ["libs/test-utils/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

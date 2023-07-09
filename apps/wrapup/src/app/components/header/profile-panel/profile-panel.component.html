@@ -1,0 +1,43 @@
+<div class="relative group">
+  <button
+    class="flex items-center gap-2 p-2 rounded-xl hover:bg-zinc-700"
+    #profileTrigger
+  >
+    <wrapup-avatar
+      [userProfile]="userProfile$ | async"
+      data-test-id="profile-button-avatar"
+    ></wrapup-avatar>
+
+    <svg-icon key="chevron-down" size="md"></svg-icon>
+  </button>
+
+  <div
+    *ngIf="isOpen"
+    [@openClose]="isOpen ? 'open' : 'closed'"
+    class="min-w-[300px] absolute top-14 right-0 pt-4 pb-4 px-3 border border-zinc-700 rounded-xl bg-zinc-800 shadow-2xl shadow-black"
+    #profilePanel
+  >
+    <ng-container *ngIf="userProfile$ | async as userProfile">
+      <div
+        class="flex gap-4 items-center mb-2 pb-4 px-3 border-b-2 border-zinc-700"
+      >
+        <wrapup-avatar [userProfile]="userProfile"></wrapup-avatar>
+
+        <wrapup-h5
+          classes="truncate max-w-[200px]"
+          [title]="userProfile | userName"
+        >
+          {{ userProfile | userName }}
+        </wrapup-h5>
+      </div>
+
+      <wrapup-profile-panel-item [url]="['/profile']">
+        My profile
+      </wrapup-profile-panel-item>
+
+      <wrapup-profile-panel-item (itemClick)="logOut()">
+        Log out
+      </wrapup-profile-panel-item>
+    </ng-container>
+  </div>
+</div>

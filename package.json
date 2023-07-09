@@ -88,6 +88,7 @@
     "@angular/compiler-cli": "15.2.8",
     "@angular/language-service": "15.2.8",
     "@faker-js/faker": "^7.6.0",
+    "@hirez_io/observer-spy": "^2.2.0",
     "@nestjs/schematics": "^9.0.0",
     "@nestjs/testing": "^9.0.0",
     "@ngneat/svg-generator": "^7.0.0",

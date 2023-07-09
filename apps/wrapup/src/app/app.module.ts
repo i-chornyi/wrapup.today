@@ -7,9 +7,11 @@ import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './guards/auth.guard';
 import { RefreshTokenInterceptor } from './interceptors/refresh-token.interceptor';
 import { CsrfTokenInterceptor } from './interceptors/csrf-token.interceptor';
+import { HeaderComponent } from './components/header/header.component';
 import { SharedModule } from './shared.module';
 import { provideSvgIcons, SvgIconComponent } from '@ngneat/svg-icon';
 import { chevronDownIcon } from './svg/chevron-down';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 const appRoutes: Routes = [
   {
@@ -41,16 +43,24 @@ const appRoutes: Routes = [
     loadChildren: () =>
       import('./pages/projects/projects.module').then((m) => m.ProjectsModule),
   },
+  {
+    path: 'profile',
+    canActivate: [AuthGuard],
+    loadChildren: () =>
+      import('./pages/profile/profile.module').then((m) => m.ProfileModule),
+  },
 ];
 
 @NgModule({
   declarations: [AppComponent],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     HttpClientModule,
     RouterModule.forRoot(appRoutes),
     SharedModule,
     SvgIconComponent,
+    HeaderComponent,
   ],
   providers: [
     provideSvgIcons([chevronDownIcon]),
