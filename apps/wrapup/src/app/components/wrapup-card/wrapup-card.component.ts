@@ -3,7 +3,6 @@ import {
   Component,
   Input,
   OnChanges,
-  OnInit,
   SimpleChanges,
 } from '@angular/core';
 import Autolinker from 'autolinker';
@@ -14,14 +13,10 @@ import { Wrapup } from '@wrapup/api-interfaces';
   templateUrl: './wrapup-card.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class WrapupCardComponent implements OnInit, OnChanges {
+export class WrapupCardComponent implements OnChanges {
   @Input() wrapup!: Wrapup;
 
   done!: string;
-
-  constructor() {}
-
-  ngOnInit(): void {}
 
   ngOnChanges(changes: SimpleChanges) {
     this.done = changes['wrapup'].currentValue.done.replace(/\n/g, '<br />');

@@ -5,6 +5,7 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { CommonModule } from '@angular/common';
 import { RouterTestingModule } from '@angular/router/testing';
 import { CalendarModule } from '@wrapup/calendar';
+import { DialogModule } from '@angular/cdk/dialog';
 
 describe('ProjectDetailComponent', () => {
   let component: ProjectDetailComponent;
@@ -18,6 +19,7 @@ describe('ProjectDetailComponent', () => {
         HttpClientTestingModule,
         RouterTestingModule,
         CalendarModule,
+        DialogModule,
       ],
     }).compileComponents();
 

@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { DIALOG_DATA, DialogRef } from '@angular/cdk/dialog';
 import { WrapupService } from '../../../services/wrapup.service';
@@ -9,7 +9,7 @@ import { Project, WrapupCreation } from '@wrapup/api-interfaces';
   selector: 'wrapup-add-wrapup-dialog',
   templateUrl: './add-wrapup-dialog.component.html',
 })
-export class AddWrapupDialogComponent implements OnInit {
+export class AddWrapupDialogComponent {
   addWrapupForm = new FormGroup({
     done: new FormControl('', {
       nonNullable: true,
@@ -30,10 +30,6 @@ export class AddWrapupDialogComponent implements OnInit {
     @Inject(DIALOG_DATA) public data: { day: DateTime; project: Project },
     private wrapupService: WrapupService,
   ) {}
-
-  ngOnInit(): void {
-    console.log(this.data.day.toUTC().toISO());
-  }
 
   save() {
     console.log(this.data);
