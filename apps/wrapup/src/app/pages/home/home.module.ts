@@ -3,6 +3,7 @@ import { HomeComponent } from './home.component';
 import { ButtonModule } from '@wrapup/button';
 import { RouterModule, Routes } from '@angular/router';
 import { SharedModule } from '../../shared.module';
+import { NgOptimizedImage } from '@angular/common';
 
 const routes: Routes = [
   {
@@ -13,6 +14,11 @@ const routes: Routes = [
 
 @NgModule({
   declarations: [HomeComponent],
-  imports: [SharedModule, ButtonModule, RouterModule.forChild(routes)],
+  imports: [
+    SharedModule,
+    ButtonModule,
+    RouterModule.forChild(routes),
+    NgOptimizedImage,
+  ],
 })
 export class HomeModule {}

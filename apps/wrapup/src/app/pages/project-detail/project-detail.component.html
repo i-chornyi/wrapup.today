@@ -11,6 +11,7 @@
     <div class="w-full flex justify-between items-center mb-8">
       <ng-container *ngIf="project$ | async as project">
         <div>
+          <a class="text-sm" [routerLink]="['/projects']">< Back to Projects</a>
           <wrapup-h1>{{ project.name }}</wrapup-h1>
           <p *ngIf="selectedDay$ | async as selectedDay">
             {{ selectedDay | luxonDateToFormat: 'MMMM d, yyyy' }}
