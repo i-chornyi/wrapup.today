@@ -27,14 +27,16 @@ export class UserEntity {
   @Column({ nullable: true, default: null })
   lastName: string;
 
-  @Column()
+  @Column({ unique: true })
   email: string;
 
   @Column({ nullable: true, default: null })
   @Exclude()
   password: string;
 
-  @OneToMany(() => ProjectEntity, (project) => project.owner)
+  @OneToMany(() => ProjectEntity, (project) => project.owner, {
+    onDelete: 'CASCADE',
+  })
   projects: ProjectEntity[];
 
   @OneToMany(() => RefreshTokenEntity, (refreshToken) => refreshToken.user, {
@@ -43,7 +45,9 @@ export class UserEntity {
   })
   refreshTokens: RefreshTokenEntity[];
 
-  @OneToOne(() => AvatarSettingEntity, (avatar) => avatar.user)
+  @OneToOne(() => AvatarSettingEntity, (avatar) => avatar.user, {
+    cascade: true,
+  })
   avatar: AvatarSettingEntity;
 
   @Column({ type: 'timestamptz', default: () => 'CURRENT_TIMESTAMP' })

@@ -16,7 +16,9 @@ export class ProjectEntity {
   @Column()
   name: string;
 
-  @OneToMany(() => WrapupEntity, (wrapup) => wrapup.project)
+  @OneToMany(() => WrapupEntity, (wrapup) => wrapup.project, {
+    onDelete: 'CASCADE',
+  })
   wrapups: WrapupEntity[];
 
   @ManyToOne(() => UserEntity, (user) => user.projects, {

@@ -25,4 +25,13 @@ export class AvatarSettingsService {
     });
     return this.avatarSettingRepository.save(newAvatar);
   }
+
+  generateAvatarEntity() {
+    const newAvatarSettings = generateAvatarSettings();
+    const avatar = new AvatarSettingEntity();
+    avatar.angle = newAvatarSettings.angle;
+    avatar.colors = newAvatarSettings.colors;
+
+    return avatar;
+  }
 }
