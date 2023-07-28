@@ -1,4 +1,10 @@
-import { forwardRef, Inject, Injectable } from '@nestjs/common';
+import {
+  forwardRef,
+  HttpException,
+  HttpStatus,
+  Inject,
+  Injectable,
+} from '@nestjs/common';
 import { QueryFailedError, Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import {
@@ -11,7 +17,7 @@ import { MailService } from '../mail/mail.service';
 import { Response } from 'express';
 import { AvatarSettingsService } from '../avatar-settings/avatar-settings.service';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { UserProfile } from '@wrapup/api-interfaces';
+import { SuccessResponse, UserProfile } from '@wrapup/api-interfaces';
 import { throwEmailAlreadyExistsException } from '../../throwables/user';
 
 @Injectable()
@@ -59,8 +65,11 @@ export class UserService {
     } as UserProfile;
   }
 
-  async updateProfile(id: UserEntity['id'], body: UpdateUserDto): Promise<any> {
-    return this.usersRepository
+  async updateProfile(
+    id: UserEntity['id'],
+    body: UpdateUserDto,
+  ): Promise<SuccessResponse> {
+    const result = await this.usersRepository
       .createQueryBuilder('users')
       .update()
       .set({
@@ -69,6 +78,18 @@ export class UserService {
       })
       .where('id = :id', { id })
       .execute();
+
+    if (result.affected > 0) {
+      return {
+        result: 'ok',
+        message: 'User profile was successfully updated.',
+      };
+    }
+
+    throw new HttpException(
+      { message: 'Something went wrong. User profile could not be updated.' },
+      HttpStatus.BAD_REQUEST,
+    );
   }
 
   async createUserByEmailAndPassword(

@@ -24,7 +24,7 @@ async function bootstrap() {
   app.use(cookieParser());
   app.setGlobalPrefix(globalPrefix);
   app.useGlobalInterceptors(new HeadersInterceptor());
-  app.useGlobalPipes(new ValidationPipe());
+  app.useGlobalPipes(new ValidationPipe({ stopAtFirstError: true }));
   app.enableVersioning({
     type: VersioningType.URI,
   });

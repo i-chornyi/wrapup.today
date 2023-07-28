@@ -4,6 +4,20 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { ValidationPipe, VersioningType } from '@nestjs/common';
 import { HeadersInterceptor } from '../src/app/interceptors/headers.interceptor';
 import * as cookieParser from 'cookie-parser';
+import { UserSeedService } from './seed-utils/users';
+import { AvatarSeedService } from './seed-utils/avatar';
+import { ISendMailOptions, MailerService } from '@nestjs-modules/mailer';
+import { UserEntity } from '../src/app/resources/user/entities/user.entity';
+
+class MockMailerService {
+  async sendMail(options: ISendMailOptions): Promise<void> {
+    // Do nothing in the mock implementation
+  }
+
+  async sendUserConfirmation(userEntity: UserEntity) {
+    // Do nothing
+  }
+}
 
 export async function createTestingModule() {
   const moduleRef = await Test.createTestingModule({
@@ -19,7 +33,11 @@ export async function createTestingModule() {
         synchronize: true,
       }),
     ],
-  }).compile();
+    providers: [UserSeedService, AvatarSeedService],
+  })
+    .overrideProvider(MailerService)
+    .useClass(MockMailerService)
+    .compile();
 
   const app = moduleRef.createNestApplication();
 
@@ -37,7 +55,11 @@ export async function createTestingModule() {
   });
   app.use(cookieParser());
   app.useGlobalInterceptors(new HeadersInterceptor());
-  app.useGlobalPipes(new ValidationPipe());
+  app.useGlobalPipes(
+    new ValidationPipe({
+      stopAtFirstError: true,
+    }),
+  );
   app.enableVersioning({
     type: VersioningType.URI,
   });

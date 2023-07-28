@@ -1,6 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { AvatarComponent } from './avatar.component';
-import { UserInitialsPipe } from '../../pipes/user-initials.pipe';
 import {
   generateFakeUserProfile,
   getTestIdDataAttribute,
@@ -12,7 +11,7 @@ describe('AvatarComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [AvatarComponent, UserInitialsPipe],
+      imports: [AvatarComponent],
     }).compileComponents();
 
     fixture = TestBed.createComponent(AvatarComponent);

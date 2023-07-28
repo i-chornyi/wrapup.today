@@ -23,7 +23,7 @@ export class JwtAuthGuard extends AuthGuard('jwt') {
       retrieveAccessAndRefreshTokensFromCookies(request);
 
     if (!refreshToken) {
-      return false;
+      throw new HttpException({}, HttpStatus.UNAUTHORIZED);
     }
 
     if (!accessToken) {

@@ -25,14 +25,14 @@ import { UpdateUserDto } from './dto/update-user.dto';
 export class UserController {
   constructor(private userService: UserService) {}
 
-  @UseGuards(JwtAuthGuard)
   @Get('profile')
+  @UseGuards(JwtAuthGuard)
   getProfile(@Req() req: AppRequest) {
     return this.userService.getProfile(req.user.userId);
   }
 
-  @UseGuards(JwtAuthGuard)
   @Put('profile')
+  @UseGuards(JwtAuthGuard)
   updateProfile(@Req() req: AppRequest, @Body() body: UpdateUserDto) {
     return this.userService.updateProfile(req.user.userId, body);
   }

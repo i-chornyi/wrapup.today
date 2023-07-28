@@ -1,29 +1,63 @@
-import { IsEmail, IsNotEmpty, IsString, MinLength } from 'class-validator';
+import {
+  IsEmail,
+  IsNotEmpty,
+  IsOptional,
+  IsString,
+  MaxLength,
+  MinLength,
+} from 'class-validator';
+import {
+  getInvalidEmailMessage,
+  getIsRequiredMessage,
+  getIsStringMessage,
+  getMaxLengthMessage,
+  getMinLengthMessage,
+} from '../../../utils/validation-messages.util';
+import {
+  EMAIL_MAX_LENGTH,
+  FIRST_NAME_MAX_LENGTH,
+  LAST_NAME_MAX_LENGTH,
+  PASSWORD_MIN_LENGTH,
+} from '@wrapup/common-constants';
 
 export class CreateUserByEmailAndPasswordDto {
-  @IsEmail({}, { message: 'Invalid e-mail format' })
-  @IsNotEmpty()
+  @MaxLength(EMAIL_MAX_LENGTH, {
+    message: getMaxLengthMessage(EMAIL_MAX_LENGTH, 'E-mail'),
+  })
+  @IsEmail({}, { message: getInvalidEmailMessage() })
+  @IsNotEmpty({ message: getIsRequiredMessage('E-mail') })
   email: string;
 
-  @IsNotEmpty()
-  @MinLength(6)
+  @MinLength(PASSWORD_MIN_LENGTH, {
+    message: getMinLengthMessage(PASSWORD_MIN_LENGTH, 'Password'),
+  })
+  @IsNotEmpty({ message: getIsRequiredMessage('Password') })
   password: string;
 }
 
 export class CreateUserByGoogleDataDto {
-  @IsNotEmpty()
   @IsString()
+  @IsNotEmpty({ message: getIsRequiredMessage('ID') })
   id: string;
 
-  @IsEmail({}, { message: 'Invalid e-mail format' })
-  @IsNotEmpty()
+  @MaxLength(EMAIL_MAX_LENGTH, {
+    message: getMaxLengthMessage(EMAIL_MAX_LENGTH, 'E-mail'),
+  })
+  @IsEmail({}, { message: getInvalidEmailMessage() })
+  @IsNotEmpty({ message: getIsRequiredMessage('E-mail') })
   email: string;
 
-  @IsNotEmpty()
-  @IsString()
+  @MaxLength(FIRST_NAME_MAX_LENGTH, {
+    message: getMaxLengthMessage(FIRST_NAME_MAX_LENGTH, 'First name'),
+  })
+  @IsString({ message: getIsStringMessage('First name') })
+  @IsNotEmpty({ message: getIsRequiredMessage('First name') })
   firstName: string;
 
-  @IsNotEmpty()
-  @IsString()
+  @IsOptional()
+  @MaxLength(LAST_NAME_MAX_LENGTH, {
+    message: getMaxLengthMessage(LAST_NAME_MAX_LENGTH, 'Last name'),
+  })
+  @IsString({ message: getIsStringMessage('Last name') })
   lastName: string;
 }

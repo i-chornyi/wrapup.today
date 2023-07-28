@@ -10,10 +10,9 @@
     "build": "nx build",
     "svg": "svg-generator",
     "test": "nx test",
-    "test:watch": "nx test --watch",
-    "test:calendar:watch": "nx test calendar --watch",
     "test:api:unit": "nx test api --test-path-pattern=src/app/*",
-    "test:api:integration": "nx test api --test-path-pattern=tests/*"
+    "test:api:e2e": "nx test api --test-path-pattern=tests/*",
+    "test:calendar": "nx test calendar"
   },
   "svgGenerator": {
     "outputPath": "apps/wrapup/src/app/svg",
