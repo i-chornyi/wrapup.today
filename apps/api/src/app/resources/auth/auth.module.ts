@@ -14,8 +14,8 @@ import { RefreshTokenEntity } from './refresh-token/entities/refresh-token.entit
 @Module({
   controllers: [AuthController, RefreshTokenController],
   imports: [
-    forwardRef(() => UserModule),
     PassportModule,
+    forwardRef(() => UserModule),
     TypeOrmModule.forFeature([RefreshTokenEntity]),
   ],
   providers: [
