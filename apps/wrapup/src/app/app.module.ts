@@ -12,6 +12,7 @@ import { SharedModule } from './shared.module';
 import { provideSvgIcons, SvgIconComponent } from '@ngneat/svg-icon';
 import { chevronDownIcon } from './svg/chevron-down';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { plusIcon } from './svg/plus';
 
 const appRoutes: Routes = [
   {
@@ -63,7 +64,7 @@ const appRoutes: Routes = [
     HeaderComponent,
   ],
   providers: [
-    provideSvgIcons([chevronDownIcon]),
+    provideSvgIcons([chevronDownIcon, plusIcon]),
     {
       provide: HTTP_INTERCEPTORS,
       useClass: RefreshTokenInterceptor,

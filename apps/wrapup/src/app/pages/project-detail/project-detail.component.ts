@@ -13,7 +13,7 @@ import {
 } from 'rxjs';
 import { DateTime } from 'luxon';
 import { Dialog } from '@angular/cdk/dialog';
-import { AddWrapupDialogComponent } from './add-wrapup-dialog/add-wrapup-dialog.component';
+import { AddWrapupDialogComponent } from './components/add-wrapup-dialog/add-wrapup-dialog.component';
 import { Project } from '@wrapup/api-interfaces';
 
 @Component({

@@ -1,7 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { DIALOG_DATA, DialogRef } from '@angular/cdk/dialog';
-import { WrapupService } from '../../../services/wrapup.service';
+import { WrapupService } from '../../../../services/wrapup.service';
 import { DateTime } from 'luxon';
 import { Project, WrapupCreation } from '@wrapup/api-interfaces';
 

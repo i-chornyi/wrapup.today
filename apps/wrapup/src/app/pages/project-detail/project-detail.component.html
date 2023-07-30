@@ -8,8 +8,8 @@
     ></wrapup-calendar>
   </div>
   <div class="h-full grow basis-auto">
-    <div class="w-full flex justify-between items-center mb-8">
-      <ng-container *ngIf="project$ | async as project">
+    <ng-container *ngIf="project$ | async as project">
+      <div class="w-full flex justify-between items-center mb-8">
         <div>
           <a class="text-sm" [routerLink]="['/projects']">< Back to Projects</a>
           <wrapup-h1>{{ project.name }}</wrapup-h1>
@@ -25,23 +25,28 @@
         >
           Add wrapup
         </button>
-      </ng-container>
-    </div>
-    <div class="flex gap-4 flex-wrap" *ngIf="wrapups$ | async as wrapups">
-      <ng-container *ngIf="isLoading$ | async; else dataList">
-        <wrapup-wrapup-card-skeleton></wrapup-wrapup-card-skeleton>
-        <wrapup-wrapup-card-skeleton></wrapup-wrapup-card-skeleton>
-        <wrapup-wrapup-card-skeleton></wrapup-wrapup-card-skeleton>
-      </ng-container>
+      </div>
 
-      <ng-template #dataList>
-        <wrapup-wrapup-card
-          *ngFor="let wrapup of wrapups"
-          [wrapup]="wrapup"
-        ></wrapup-wrapup-card>
-        <p *ngIf="!wrapups.length">No wrapups this day</p>
-      </ng-template>
-    </div>
+      <div class="flex gap-4 flex-wrap" *ngIf="wrapups$ | async as wrapups">
+        <ng-container *ngIf="isLoading$ | async; else dataList">
+          <wrapup-wrapup-card-skeleton></wrapup-wrapup-card-skeleton>
+          <wrapup-wrapup-card-skeleton></wrapup-wrapup-card-skeleton>
+          <wrapup-wrapup-card-skeleton></wrapup-wrapup-card-skeleton>
+        </ng-container>
+
+        <ng-template #dataList>
+          <wrapup-wrapup-card
+            *ngFor="let wrapup of wrapups"
+            [wrapup]="wrapup"
+          ></wrapup-wrapup-card>
+          <wrapup-add-wrapup-card-button
+            *ngIf="selectedDay$ | async as selectedDay"
+            (click)="openAddWrapupDialog(selectedDay, project)"
+          ></wrapup-add-wrapup-card-button>
+          <p *ngIf="!wrapups.length">No wrapups this day</p>
+        </ng-template>
+      </div>
+    </ng-container>
   </div>
 </div>
 
