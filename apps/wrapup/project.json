@@ -60,6 +60,10 @@
         },
         "development": {
           "browserTarget": "wrapup:build:development"
+        },
+        "e2e": {
+          "browserTarget": "wrapup:build:development",
+          "port": 4201
         }
       },
       "defaultConfiguration": "development",

@@ -5,11 +5,11 @@
   "projectType": "application",
   "targets": {
     "e2e": {
-      "executor": "@nx/cypress:cypress",
+      "executor": "@mands/nx-playwright:playwright-executor",
       "options": {
-        "cypressConfig": "apps/wrapup-e2e/cypress.config.ts",
-        "devServerTarget": "wrapup:serve:development",
-        "testingType": "e2e"
+        "e2eFolder": "apps/wrapup-e2e",
+        "devServerTarget": "wrapup:serve:e2e",
+        "packageRunner": "npx"
       },
       "configurations": {
         "production": {
@@ -17,11 +17,21 @@
         }
       }
     },
+    "ts-check": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          {
+            "command": "tsc --build --force --verbose apps/wrapup-e2e/tsconfig.json"
+          }
+        ]
+      }
+    },
     "lint": {
       "executor": "@nx/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["apps/wrapup-e2e/**/*.{js,ts}"]
+        "lintFilePatterns": ["apps/wrapup-e2e/**/*.{ts,tsx,js,jsx}"]
       }
     }
   },
