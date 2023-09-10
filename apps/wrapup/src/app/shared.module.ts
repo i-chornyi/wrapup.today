@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { WrapupCardComponent } from './components/wrapup-card/wrapup-card.component';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { WrapupCardSkeletonComponent } from './components/skeletons/wrapup-card-skeleton/wrapup-card-skeleton.component';
 import { HeadingModule } from '@wrapup/heading';
 import { LoginDialogComponent } from './components/login-dialog/login-dialog.component';
@@ -33,6 +33,7 @@ import { UserNamePipe } from './pipes/user-name.pipe';
     HeadingModule,
     InputModule,
     ButtonModule,
+    NgOptimizedImage,
   ],
   exports: [
     WrapupCardComponent,

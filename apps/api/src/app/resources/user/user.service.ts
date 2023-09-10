@@ -98,7 +98,7 @@ export class UserService {
   ) {
     const avatar = this.avatarSettingsService.generateAvatarEntity();
 
-    const createdUser = await this.usersRepository.create({ ...body, avatar });
+    const createdUser = this.usersRepository.create({ ...body, avatar });
 
     try {
       const user = await this.usersRepository.save(createdUser);
@@ -109,7 +109,8 @@ export class UserService {
         });
       }
 
-      return this.authService.login(user);
+      const tokens = await this.authService.login(user);
+      return { tokens, user };
     } catch (error) {
       if (
         error instanceof QueryFailedError &&

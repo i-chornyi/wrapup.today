@@ -42,14 +42,17 @@ export class UserController {
     @Res() res: Response,
     @Body() body: CreateUserByEmailAndPasswordDto,
   ) {
-    const tokens = await this.userService.createUserByEmailAndPassword(
-      body,
-      res,
-    );
+    const { tokens, user } =
+      await this.userService.createUserByEmailAndPassword(body, res);
 
     if (tokens) {
       setAccessAndRefreshTokensToCookies(res, tokens);
-      res.send({ result: 'ok' });
+      res.send({
+        id: user.id,
+        email: user.email,
+        firstName: user.firstName,
+        lastName: user.lastName,
+      });
     } else {
       throw new HttpException('Something went wrong', HttpStatus.BAD_REQUEST);
     }

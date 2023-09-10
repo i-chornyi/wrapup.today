@@ -1,39 +1,17 @@
-import { Logger, ValidationPipe, VersioningType } from '@nestjs/common';
+import { Logger } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 
-import * as cookieParser from 'cookie-parser';
-
 import { AppModule } from './app/app.module';
-import { HeadersInterceptor } from './app/interceptors/headers.interceptor';
+import { setupNestApp } from './application-builder';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule, {
-    cors: true,
-  });
-  const globalPrefix = 'api';
-  app.enableCors({
-    credentials: true,
-    allowedHeaders: [
-      'Content-Type',
-      'Access-Control-Allow-Origin',
-      'Access-Control-Allow-Headers',
-      'X-CSRF-TOKEN',
-    ],
-    origin: [process.env.CLIENT_URI],
-  });
-  app.use(cookieParser());
-  app.setGlobalPrefix(globalPrefix);
-  app.useGlobalPipes(
-    new ValidationPipe({ whitelist: true, stopAtFirstError: true }),
-  );
-  app.enableVersioning({
-    type: VersioningType.URI,
-  });
+  const app = await NestFactory.create(AppModule);
+
+  setupNestApp(app);
+
   const port = process.env.PORT || 3333;
   await app.listen(port);
-  Logger.log(
-    `🚀 Application is running on: http://localhost:${port}/${globalPrefix}`,
-  );
+  Logger.log(`🚀 Application is running on: http://localhost:${port}/api`);
 }
 
 bootstrap();

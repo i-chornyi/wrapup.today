@@ -17,7 +17,6 @@ export class JwtAuthGuard extends AuthGuard('jwt') {
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const request = context.switchToHttp().getRequest();
-    const response = context.switchToHttp().getResponse();
 
     const { accessToken, refreshToken } =
       retrieveAccessAndRefreshTokensFromCookies(request);
@@ -27,8 +26,6 @@ export class JwtAuthGuard extends AuthGuard('jwt') {
     }
 
     if (!accessToken) {
-      response.set('Access-Control-Allow-Origin', process.env.CLIENT_URI);
-
       throw new HttpException(
         { reason: 'token_expired' },
         HttpStatus.UNAUTHORIZED,
@@ -39,8 +36,6 @@ export class JwtAuthGuard extends AuthGuard('jwt') {
       this.jwtService.verify(accessToken);
     } catch (error) {
       if (error instanceof TokenExpiredError) {
-        response.set('Access-Control-Allow-Origin', process.env.CLIENT_URI);
-
         throw new HttpException(
           { reason: 'token_expired' },
           HttpStatus.UNAUTHORIZED,
