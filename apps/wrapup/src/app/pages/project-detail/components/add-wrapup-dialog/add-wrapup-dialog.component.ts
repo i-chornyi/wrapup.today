@@ -35,7 +35,7 @@ export class AddWrapupDialogComponent {
     console.log(this.data);
     const newWrapup: WrapupCreation = {
       projectId: this.data.project.id,
-      day: this.data.day.toUTC().toISO(),
+      day: this.data.day.toUTC().toISO()!,
       ...this.addWrapupForm.getRawValue(),
     };
     this.wrapupService.createWrapup(newWrapup).subscribe();

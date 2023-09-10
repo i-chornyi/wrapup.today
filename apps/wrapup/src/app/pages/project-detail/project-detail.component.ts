@@ -46,7 +46,7 @@ export class ProjectDetailComponent implements OnInit {
     tap(() => this.isLoading$.next(true)),
     switchMap(([projectId, selectedDay]) =>
       this.projectService
-        .getProjectWrapups(projectId || '', selectedDay.toUTC().toISO())
+        .getProjectWrapups(projectId || '', selectedDay.toUTC().toISO()!)
         .pipe(finalize(() => this.isLoading$.next(false))),
     ),
   );
