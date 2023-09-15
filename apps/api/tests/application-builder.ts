@@ -2,7 +2,6 @@ import { Test } from '@nestjs/testing';
 import { AppModule } from '../src/app/app.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ValidationPipe, VersioningType } from '@nestjs/common';
-import { HeadersInterceptor } from '../src/app/interceptors/headers.interceptor';
 import * as cookieParser from 'cookie-parser';
 import { UserSeedService } from './seed-utils/users';
 import { AvatarSeedService } from './seed-utils/avatar';
@@ -54,7 +53,6 @@ export async function createTestingModule() {
     origin: [process.env.CLIENT_URI],
   });
   app.use(cookieParser());
-  app.useGlobalInterceptors(new HeadersInterceptor());
   app.useGlobalPipes(
     new ValidationPipe({
       stopAtFirstError: true,

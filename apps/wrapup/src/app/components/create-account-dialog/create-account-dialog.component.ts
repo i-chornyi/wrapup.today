@@ -8,7 +8,6 @@ import { UserCreation } from '@wrapup/api-interfaces';
 @Component({
   selector: 'wrapup-create-account-dialog',
   templateUrl: './create-account-dialog.component.html',
-  styleUrls: ['./create-account-dialog.component.scss'],
 })
 export class CreateAccountDialogComponent implements OnInit {
   loginForm = new FormGroup({
