@@ -35,8 +35,18 @@
       [formControl]="nameControl"
     />
     <button wrapupButton (click)="save()">Save</button>
-    <button wrapupButton (click)="openLoginDialog()">Log in</button>
-    <button wrapupButton (click)="openCreateAccountDialog()">
+    <button
+      wrapupButton
+      data-test-id="open-login-dialog-button"
+      (click)="openLoginDialog()"
+    >
+      Log in
+    </button>
+    <button
+      wrapupButton
+      data-test-id="open-create-account-dialog-button"
+      (click)="openCreateAccountDialog()"
+    >
       Create account
     </button>
   </div>

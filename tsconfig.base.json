@@ -16,6 +16,7 @@
     "baseUrl": ".",
     "paths": {
       "@wrapup/api": ["apps/api/src"],
+      "@wrapup/wrapup-e2e": ["apps/wrapup-e2e/src"],
       "@wrapup/api-interfaces": ["libs/api-interfaces/src/index.ts"],
       "@wrapup/button": ["libs/button/src/index.ts"],
       "@wrapup/calendar": ["libs/calendar/src/index.ts"],
@@ -23,6 +24,7 @@
       "@wrapup/heading": ["libs/heading/src/index.ts"],
       "@wrapup/input": ["libs/input/src/index.ts"],
       "@wrapup/test-utils": ["libs/test-utils/src/index.ts"]
+//      "@wrapup/test-utils2": ["libs/test-utils/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

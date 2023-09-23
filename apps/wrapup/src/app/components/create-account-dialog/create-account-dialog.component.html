@@ -1,4 +1,7 @@
-<div class="h-full overflow-auto p-12 w-112">
+<div
+  class="h-full overflow-auto p-12 w-112"
+  data-test-id="create-account-dialog"
+>
   <div class="mb-16">
     <img
       class="w-1/2 mx-auto"
@@ -26,6 +29,7 @@
       formControlName="email"
       label="E-mail"
       placeholder="name@example.com"
+      testId="create-account-email-control"
     ></wrapup-input>
 
     <wrapup-input
@@ -33,11 +37,18 @@
       formControlName="password"
       label="Password"
       placeholder="********"
+      testId="create-account-password-control"
     ></wrapup-input>
 
     <div class="flex justify-end items-center gap-4 mt-8">
       <button type="button" wrapupButton (click)="close()">Cancel</button>
-      <button wrapupButton theme="primary">Create account</button>
+      <button
+        wrapupButton
+        data-test-id="create-account-action-button"
+        theme="primary"
+      >
+        Create account
+      </button>
     </div>
   </form>
 </div>

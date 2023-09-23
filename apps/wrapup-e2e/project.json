@@ -2,39 +2,21 @@
   "name": "wrapup-e2e",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "apps/wrapup-e2e/src",
-  "projectType": "application",
   "targets": {
     "e2e": {
-      "executor": "@mands/nx-playwright:playwright-executor",
+      "executor": "@nx/playwright:playwright",
+      "outputs": ["{workspaceRoot}/dist/.playwright/apps/wrapup-e2e"],
       "options": {
-        "e2eFolder": "apps/wrapup-e2e",
-        "devServerTarget": "wrapup:serve:e2e",
-        "packageRunner": "npx"
-      },
-      "configurations": {
-        "production": {
-          "devServerTarget": "wrapup:serve:production"
-        }
-      }
-    },
-    "ts-check": {
-      "executor": "nx:run-commands",
-      "options": {
-        "commands": [
-          {
-            "command": "tsc --build --force --verbose apps/wrapup-e2e/tsconfig.json"
-          }
-        ]
+        "config": "apps/wrapup-e2e/playwright.config.ts"
       }
     },
     "lint": {
       "executor": "@nx/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["apps/wrapup-e2e/**/*.{ts,tsx,js,jsx}"]
+        "lintFilePatterns": ["apps/wrapup-e2e/**/*.{js,ts}"]
       }
     }
   },
-  "tags": [],
   "implicitDependencies": ["wrapup"]
 }

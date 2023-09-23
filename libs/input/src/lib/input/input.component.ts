@@ -17,6 +17,7 @@ export class InputComponent implements OnInit, ControlValueAccessor {
   @Input() placeholder = '';
   @Input() type: 'text' | 'email' | 'password' = 'text';
   @Input() isOptional = false;
+  @Input() testId!: string;
 
   value: unknown;
 
