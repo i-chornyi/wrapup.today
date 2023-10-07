@@ -1,0 +1,25 @@
+# Use an official Node.js runtime as the base image
+FROM node:18.17.1-alpine
+
+# Set the working directory inside the container
+WORKDIR /app
+
+# Copy the package.json and package-lock.json (if available) to the container
+COPY ./decorate-angular-cli.js ./
+COPY ./package*.json ./
+
+# Install the project dependencies
+RUN npm i
+# RUN npm i --save-dev @nrwl/cli
+# RUN npm i --save-dev @nrwl/nx-linux-x64-musl
+# Copy the entire workspace into the container
+COPY . .
+
+# Build your Nx Nest.js application (replace 'app-name' with your actual application name)
+RUN npm run build:api -- --skip-nx-cache
+
+# Expose the port your Nest.js application is listening on (replace '3000' with the actual port)
+EXPOSE 3333
+
+# Define the command to run your Nest.js application (replace 'app-name' with your actual application name)
+CMD [ "npm", "run", "run:api" ]
