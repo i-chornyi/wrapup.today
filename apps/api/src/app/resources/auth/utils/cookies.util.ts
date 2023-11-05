@@ -6,6 +6,7 @@ import {
   CSRF_COOKIE_KEY,
   REFRESH_TOKEN_COOKIE_KEY,
 } from '@wrapup/common-constants';
+import { environment } from '../../../../environments/environment';
 
 export const retrieveAccessAndRefreshTokensFromCookies = (request: Request) => {
   const accessToken = request.cookies[ACCESS_TOKEN_COOKIE_KEY];
@@ -22,11 +23,13 @@ export const setAccessAndRefreshTokensToCookies = (
     httpOnly: true,
     secure: true,
     maxAge: getAccessTokenMaxAge(),
+    sameSite: environment.production ? 'lax' : 'none',
   });
   response.cookie(REFRESH_TOKEN_COOKIE_KEY, tokens.refreshToken, {
     httpOnly: true,
     secure: true,
     maxAge: getRefreshTokenMaxAge(),
+    sameSite: environment.production ? 'lax' : 'none',
   });
 };
 
@@ -35,6 +38,7 @@ export const setCsrfTokenToCookies = (response: Response, token: CsrfToken) => {
     httpOnly: true,
     secure: true,
     maxAge: token.maxAge,
+    sameSite: environment.production ? 'lax' : 'none',
   });
 };
 
