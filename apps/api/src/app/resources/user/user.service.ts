@@ -12,7 +12,7 @@ import {
   CreateUserByGoogleDataDto,
 } from './dto/create-user.dto';
 import { AuthService } from '../auth/auth.service';
-import { UserEntity } from './entities/user.entity';
+import { UserEntity } from '@wrapup/db-entities';
 import { MailService } from '../mail/mail.service';
 import { Response } from 'express';
 import { AvatarSettingsService } from '../avatar-settings/avatar-settings.service';

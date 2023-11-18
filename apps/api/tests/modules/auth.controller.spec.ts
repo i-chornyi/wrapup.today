@@ -1,24 +1,31 @@
 import * as supertest from 'supertest';
 import { INestApplication } from '@nestjs/common';
-import { createTestingModule } from '../application-builder';
-import { seedFakeUser } from '../seed-utils/users';
+import { createTestingModule, DB_CONFIG } from '../application-builder';
 import { CSRF_COOKIE_KEY, CSRF_HEADER_KEY } from '@wrapup/common-constants';
-import { UserService } from '../../src/app/resources/user/user.service';
 import { generateCsrfToken } from '../../src/app/resources/auth/utils/csrf-token.util';
-import { generateFakeDataForUserCreation } from '@wrapup/test-utils';
+import {
+  createTestDbConnection,
+  generateFakeDataForUserCreation,
+} from '@wrapup/test-utils';
+import { UserSeedService } from '@wrapup/seeder-services';
 
 describe('AuthController', () => {
   let testApp: INestApplication;
+  let userSeedService: UserSeedService;
 
   beforeAll(async () => {
     testApp = await createTestingModule();
+
+    const dbConnection = await createTestDbConnection(DB_CONFIG);
+
+    userSeedService = new UserSeedService(dbConnection);
   });
 
   describe('/login (POST)', () => {
     it('should successfully login and return csrf token', async () => {
       const newUser = generateFakeDataForUserCreation();
 
-      await seedFakeUser(newUser, testApp.get(UserService));
+      await userSeedService.seedData([newUser]);
 
       const app = supertest(testApp.getHttpServer());
 

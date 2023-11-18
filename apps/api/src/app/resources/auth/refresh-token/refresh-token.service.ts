@@ -1,8 +1,7 @@
 import { forwardRef, Inject, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { MoreThanOrEqual, Repository } from 'typeorm';
-import { RefreshTokenEntity } from './entities/refresh-token.entity';
-import { UserEntity } from '../../user/entities/user.entity';
+import { RefreshTokenEntity, UserEntity } from '@wrapup/db-entities';
 import { UserService } from '../../user/user.service';
 import { DateTime } from 'luxon';
 import { JwtService } from '@nestjs/jwt';

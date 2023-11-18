@@ -1,7 +1,9 @@
 <div class="flex justify-between items-center h-20 px-4">
   <div>
     <a [routerLink]="['/']">Home</a>
-    <a [routerLink]="['/projects']">My Projects</a>
+    <a [routerLink]="['/projects']" data-test-id="project-page-link"
+      >My Projects</a
+    >
   </div>
 
   <wrapup-profile-panel></wrapup-profile-panel>

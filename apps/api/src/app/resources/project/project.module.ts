@@ -1,7 +1,7 @@
 import { forwardRef, Module } from '@nestjs/common';
 import { ProjectService } from './project.service';
 import { ProjectController } from './project.controller';
-import { ProjectEntity } from './entities/project.entity';
+import { ProjectEntity } from '@wrapup/db-entities';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { WrapupModule } from '../wrapup/wrapup.module';
 import { AuthModule } from '../auth/auth.module';

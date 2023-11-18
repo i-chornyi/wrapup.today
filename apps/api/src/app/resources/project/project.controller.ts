@@ -15,7 +15,7 @@ import {
 } from '@nestjs/common';
 import { ProjectService } from './project.service';
 import { UpdateProjectDto } from './dto/update-project.dto';
-import { ProjectEntity } from './entities/project.entity';
+import { ProjectEntity } from '@wrapup/db-entities';
 import { CreateProjectDto } from './dto/create-project.dto';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { AppRequest } from '@wrapup/api-interfaces';

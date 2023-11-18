@@ -1,10 +1,9 @@
 import { forwardRef, Inject, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { AvatarSettingEntity } from './entities/avatar-setting.entity';
+import { AvatarSettingEntity, UserEntity } from '@wrapup/db-entities';
 import { UserService } from '../user/user.service';
 import { generateAvatarSettings } from './utils/avatar-generator.util';
-import { UserEntity } from '../user/entities/user.entity';
 
 @Injectable()
 export class AvatarSettingsService {

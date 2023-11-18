@@ -2,7 +2,7 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 import { AuthService } from './auth.service';
 import { Strategy } from 'passport-local';
-import { UserEntity } from '../user/entities/user.entity';
+import { UserEntity } from '@wrapup/db-entities';
 
 @Injectable()
 export class LocalStrategy extends PassportStrategy(Strategy) {

@@ -1,12 +1,33 @@
 import { Test } from '@nestjs/testing';
 import { AppModule } from '../src/app/app.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { ValidationPipe, VersioningType } from '@nestjs/common';
-import * as cookieParser from 'cookie-parser';
-import { UserSeedService } from './seed-utils/users';
-import { AvatarSeedService } from './seed-utils/avatar';
 import { ISendMailOptions, MailerService } from '@nestjs-modules/mailer';
-import { UserEntity } from '../src/app/resources/user/entities/user.entity';
+import {
+  AvatarSettingEntity,
+  ProjectEntity,
+  RefreshTokenEntity,
+  UserEntity,
+  WrapupEntity,
+} from '@wrapup/db-entities';
+import { PostgresConnectionOptions } from 'typeorm/driver/postgres/PostgresConnectionOptions';
+import { setupNestApp } from '../src/application-builder';
+
+export const DB_CONFIG: PostgresConnectionOptions = {
+  type: 'postgres',
+  host: process.env.PGHOST,
+  port: Number(process.env.PGPORT),
+  username: process.env.PGUSER,
+  password: process.env.PGPASSWORD,
+  database: process.env.PGDATABASE,
+  synchronize: true,
+  entities: [
+    UserEntity,
+    ProjectEntity,
+    RefreshTokenEntity,
+    AvatarSettingEntity,
+    WrapupEntity,
+  ],
+};
 
 class MockMailerService {
   async sendMail(options: ISendMailOptions): Promise<void> {
@@ -20,19 +41,7 @@ class MockMailerService {
 
 export async function createTestingModule() {
   const moduleRef = await Test.createTestingModule({
-    imports: [
-      AppModule,
-      TypeOrmModule.forRoot({
-        type: 'postgres',
-        host: process.env.PGHOST,
-        port: Number(process.env.PGPORT),
-        username: process.env.PGUSER,
-        password: process.env.PGPASSWORD,
-        database: process.env.PGDATABASE,
-        synchronize: true,
-      }),
-    ],
-    providers: [UserSeedService, AvatarSeedService],
+    imports: [AppModule, TypeOrmModule.forRoot(DB_CONFIG)],
   })
     .overrideProvider(MailerService)
     .useClass(MockMailerService)
@@ -40,27 +49,7 @@ export async function createTestingModule() {
 
   const app = moduleRef.createNestApplication();
 
-  app.setGlobalPrefix('api');
-
-  app.enableCors({
-    credentials: true,
-    allowedHeaders: [
-      'Content-Type',
-      'Access-Control-Allow-Origin',
-      'Access-Control-Allow-Headers',
-      'X-CSRF-TOKEN',
-    ],
-    origin: [process.env.CLIENT_URI],
-  });
-  app.use(cookieParser());
-  app.useGlobalPipes(
-    new ValidationPipe({
-      stopAtFirstError: true,
-    }),
-  );
-  app.enableVersioning({
-    type: VersioningType.URI,
-  });
+  setupNestApp(app);
 
   await app.init();
 

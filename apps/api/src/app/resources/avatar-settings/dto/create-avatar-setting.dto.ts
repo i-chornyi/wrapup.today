@@ -1,4 +1,4 @@
-import { UserEntity } from '../../user/entities/user.entity';
+import { UserEntity } from '@wrapup/db-entities';
 import { IsNotEmpty } from 'class-validator';
 
 export class CreateAvatarSettingDto {

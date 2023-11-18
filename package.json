@@ -9,13 +9,17 @@
     "start:api": "nx serve api",
     "build:api": "nx build api",
     "run:api": "node ./dist/apps/api/main.js",
+    "run:frontend": "node ./dist/apps/wrapup/main.js",
     "build": "nx build",
     "svg": "svg-generator",
     "test": "nx test",
-    "test:e2e": "nx e2e wrapup-e2e --headed",
+    "test:e2e": "nx e2e wrapup-e2e --headed --trace=on",
     "test:api:unit": "nx test api --test-path-pattern=src/app/*",
     "test:api:e2e": "nx test api --test-path-pattern=tests/*",
-    "test:calendar": "nx test calendar"
+    "test:calendar": "nx test calendar",
+    "test-seeder:build": "nx run data-seeder:build",
+    "test-seeder:run": "node ./dist/apps/data-seeder/main.js",
+    "test-seeder": "npm run test-seeder:build && npm run test-seeder:run --"
   },
   "svgGenerator": {
     "outputPath": "apps/wrapup/src/app/svg",
@@ -50,6 +54,7 @@
     "@nestjs/testing": "10.2.4",
     "@ngneat/svg-generator": "^7.0.0",
     "@nx/cypress": "16.8.1",
+    "@nx/esbuild": "16.8.1",
     "@nx/eslint-plugin": "16.8.1",
     "@nx/jest": "16.8.1",
     "@nx/js": "16.8.1",
@@ -61,6 +66,7 @@
     "@nx/workspace": "16.8.1",
     "@playwright/test": "^1.36.0",
     "@schematics/angular": "16.0.0",
+    "@types/cookie-parser": "^1.4.6",
     "@types/jest": "29.4.4",
     "@types/luxon": "^3.1.0",
     "@types/node": "~18.7.1",
@@ -73,6 +79,7 @@
     "@typescript-eslint/parser": "5.62.0",
     "autoprefixer": "^10.4.12",
     "cypress": "^13.1.0",
+    "esbuild": "^0.19.4",
     "eslint": "~8.15.0",
     "eslint-config-prettier": "8.1.0",
     "eslint-plugin-cypress": "^2.10.3",
@@ -90,6 +97,7 @@
     "tailwindcss": "^3.3.2",
     "ts-jest": "29.1.1",
     "ts-node": "10.9.1",
+    "tsconfig-paths": "^4.2.0",
     "typescript": "5.0.4"
   },
   "dependencies": {
@@ -135,7 +143,7 @@
     "reflect-metadata": "^0.1.13",
     "rxjs": "7.8.0",
     "tslib": "^2.3.0",
-    "typeorm": "^0.3.9",
+    "typeorm": "^0.3.17",
     "uuid": "^9.0.0",
     "zone.js": "0.13.1"
   },
@@ -146,4 +154,3 @@
     "@nx/nx-win32-x64-msvc": "16.5.1"
   }
 }
-

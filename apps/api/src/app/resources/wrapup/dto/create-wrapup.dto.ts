@@ -1,4 +1,4 @@
-import { ProjectEntity } from '../../project/entities/project.entity';
+import { ProjectEntity } from '@wrapup/db-entities';
 import { IsDateString, IsNotEmpty, IsString, IsUUID } from 'class-validator';
 
 export class CreateWrapupDto {

@@ -1,5 +1,4 @@
 export * from './lib/avatar.interface';
-export * from './lib/api-interfaces';
 export * from './lib/project.interface';
 export * from './lib/request.interface';
 export * from './lib/response.interface';

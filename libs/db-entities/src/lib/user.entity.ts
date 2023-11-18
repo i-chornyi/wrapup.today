@@ -8,9 +8,9 @@ import {
 } from 'typeorm';
 import { Exclude, Expose } from 'class-transformer';
 import { hash } from 'bcryptjs';
-import { ProjectEntity } from '../../project/entities/project.entity';
-import { RefreshTokenEntity } from '../../auth/refresh-token/entities/refresh-token.entity';
-import { AvatarSettingEntity } from '../../avatar-settings/entities/avatar-setting.entity';
+import { ProjectEntity } from './project.entity';
+import { RefreshTokenEntity } from './refresh-token.entity';
+import { AvatarSettingEntity } from './avatar-setting.entity';
 
 @Entity('users')
 export class UserEntity {

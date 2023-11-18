@@ -5,8 +5,8 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { WrapupEntity } from '../../wrapup/entities/wrapup.entity';
-import { UserEntity } from '../../user/entities/user.entity';
+import { WrapupEntity } from './wrapup.entity';
+import { UserEntity } from './user.entity';
 
 @Entity('projects')
 export class ProjectEntity {

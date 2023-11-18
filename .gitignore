@@ -47,3 +47,6 @@ Thumbs.db
 **/test-results
 **/playwright-report
 **/playwright/.cache
+/apps/wrapup-e2e/playwright/**/*.json
+
+/apps/data-seeder/.env

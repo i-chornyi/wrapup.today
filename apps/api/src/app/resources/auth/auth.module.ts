@@ -9,7 +9,7 @@ import { GoogleStrategy } from './google.strategy';
 import { RefreshTokenService } from './refresh-token/refresh-token.service';
 import { RefreshTokenController } from './refresh-token/refresh-token.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { RefreshTokenEntity } from './refresh-token/entities/refresh-token.entity';
+import { RefreshTokenEntity } from '@wrapup/db-entities';
 
 @Module({
   controllers: [AuthController, RefreshTokenController],

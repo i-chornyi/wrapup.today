@@ -5,7 +5,7 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { ProjectEntity } from '../../project/entities/project.entity';
+import { ProjectEntity } from './project.entity';
 
 @Entity('wrapups')
 export class WrapupEntity {
@@ -18,6 +18,7 @@ export class WrapupEntity {
   project: ProjectEntity;
 
   @Column()
+  @JoinColumn({ name: 'user_id' })
   projectId: ProjectEntity['id'];
 
   @Column()

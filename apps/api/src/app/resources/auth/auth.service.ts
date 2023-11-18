@@ -6,7 +6,7 @@ import {
   Injectable,
 } from '@nestjs/common';
 import { UserService } from '../user/user.service';
-import { UserEntity } from '../user/entities/user.entity';
+import { UserEntity } from '@wrapup/db-entities';
 import { compareSync } from 'bcryptjs';
 import { RefreshTokenService } from './refresh-token/refresh-token.service';
 import { TokensResponse } from '@wrapup/api-interfaces';

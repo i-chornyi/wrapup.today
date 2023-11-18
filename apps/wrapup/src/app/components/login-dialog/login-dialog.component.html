@@ -22,6 +22,7 @@
       formControlName="email"
       label="E-mail"
       placeholder="name@example.com"
+      testId="login-email-control"
     ></wrapup-input>
 
     <wrapup-input
@@ -29,11 +30,14 @@
       formControlName="password"
       label="Password"
       placeholder="********"
+      testId="login-password-control"
     ></wrapup-input>
 
     <div class="flex justify-end items-center gap-4 mt-8">
       <button type="button" wrapupButton (click)="close()">Cancel</button>
-      <button wrapupButton theme="primary">Log in</button>
+      <button wrapupButton theme="primary" data-test-id="login-action-button">
+        Log in
+      </button>
     </div>
   </form>
 </div>

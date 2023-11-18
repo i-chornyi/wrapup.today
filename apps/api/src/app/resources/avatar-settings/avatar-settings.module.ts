@@ -3,7 +3,7 @@ import { AvatarSettingsService } from './avatar-settings.service';
 import { AvatarSettingsController } from './avatar-settings.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserModule } from '../user/user.module';
-import { AvatarSettingEntity } from './entities/avatar-setting.entity';
+import { AvatarSettingEntity } from '@wrapup/db-entities';
 
 @Module({
   controllers: [AvatarSettingsController],

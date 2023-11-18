@@ -1,7 +1,6 @@
 import * as supertest from 'supertest';
 import { HttpStatus, INestApplication } from '@nestjs/common';
-import { createTestingModule } from '../application-builder';
-import { UserSeedService } from '../seed-utils/users';
+import { createTestingModule, DB_CONFIG } from '../application-builder';
 import {
   ACCESS_TOKEN_COOKIE_KEY,
   CSRF_COOKIE_KEY,
@@ -11,22 +10,23 @@ import {
   REFRESH_TOKEN_COOKIE_KEY,
 } from '@wrapup/common-constants';
 import {
+  createTestDbConnection,
   generateFakeAvatar,
   generateFakeDataForUserCreation,
 } from '@wrapup/test-utils';
-import {
-  AvatarSettings,
-  TokensResponse,
-  UserCreation,
-} from '@wrapup/api-interfaces';
 import { AuthService } from '../../src/app/resources/auth/auth.service';
-import { AvatarSeedService } from '../seed-utils/avatar';
 import {
   getInvalidEmailMessage,
   getIsRequiredMessage,
   getIsStringMessage,
   getMaxLengthMessage,
 } from '../../src/app/utils/validation-messages.util';
+import { AvatarSeedService, UserSeedService } from '@wrapup/seeder-services';
+import {
+  AvatarSettings,
+  TokensResponse,
+  UserCreation,
+} from '@wrapup/api-interfaces';
 
 describe('UserController', () => {
   let appFixture: INestApplication;
@@ -44,17 +44,22 @@ describe('UserController', () => {
     appFixture = await createTestingModule();
     app = supertest(appFixture.getHttpServer());
 
-    userSeedService = appFixture.get<UserSeedService>(UserSeedService);
-    avatarSeedService = appFixture.get<AvatarSeedService>(AvatarSeedService);
+    const dbConnection = await createTestDbConnection(DB_CONFIG);
+
+    userSeedService = new UserSeedService(dbConnection);
+    avatarSeedService = new AvatarSeedService(dbConnection);
+
     authService = appFixture.get<AuthService>(AuthService);
 
     newUser = generateFakeDataForUserCreation();
     avatar = generateFakeAvatar();
-    const seededUser = await userSeedService.seedFakeUser(newUser);
-    await avatarSeedService.seedFakeAvatar({
-      ...avatar,
-      user: seededUser,
-    });
+    const seededUser = (await userSeedService.seedData([newUser]))[0];
+    await avatarSeedService.seedData([
+      {
+        ...avatar,
+        user: seededUser,
+      },
+    ]);
     tokens = await authService.login(seededUser);
   });
 
@@ -286,9 +291,7 @@ describe('UserController', () => {
 
   describe('/users [POST]', () => {
     it('should create a user', async () => {
-      const userToRegister = generateFakeDataForUserCreation({
-        email: 'example@example.com',
-      });
+      const userToRegister = generateFakeDataForUserCreation();
 
       const cookies = `${CSRF_COOKIE_KEY}=${tokens.csrfToken.csrfToken}`;
 
@@ -307,7 +310,7 @@ describe('UserController', () => {
           /refresh_token=.+; Max-Age=604800; Path=\/; Expires=.+; HttpOnly; Secure/,
         )
         .expect((res) => {
-          expect(res.body.result).toBe('ok');
+          expect(res.body.email).toBe(userToRegister.email);
         });
     });
 
@@ -347,9 +350,6 @@ describe('UserController', () => {
   });
 
   afterAll(async () => {
-    await userSeedService.cleanUpDatabaseTable();
-    await avatarSeedService.cleanUpDatabaseTable();
-
     appFixture.close();
   });
 });

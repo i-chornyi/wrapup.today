@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { DialogRef } from '@angular/cdk/dialog';
 import { AuthService } from '../../services/auth.service';
@@ -10,13 +10,13 @@ import { Router } from '@angular/router';
   templateUrl: './login-dialog.component.html',
   styleUrls: ['./login-dialog.component.scss'],
 })
-export class LoginDialogComponent implements OnInit {
+export class LoginDialogComponent {
   loginForm = new FormGroup({
-    email: new FormControl('igor@test.com', {
+    email: new FormControl('', {
       nonNullable: true,
       validators: [Validators.required],
     }),
-    password: new FormControl('123123', {
+    password: new FormControl('', {
       nonNullable: true,
       validators: [Validators.required, Validators.minLength(6)],
     }),
@@ -28,8 +28,6 @@ export class LoginDialogComponent implements OnInit {
     private authService: AuthService,
     private router: Router,
   ) {}
-
-  ngOnInit(): void {}
 
   save() {
     const credentials: AuthCredentials = {

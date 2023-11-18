@@ -1,0 +1,29 @@
+{
+  "name": "db-entities",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/db-entities/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/db-entities",
+        "main": "libs/db-entities/src/index.ts",
+        "tsConfig": "libs/db-entities/tsconfig.lib.json",
+        "assets": ["libs/db-entities/*.md"]
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": [
+          "libs/db-entities/**/*.ts",
+          "libs/db-entities/package.json"
+        ]
+      }
+    }
+  },
+  "tags": []
+}

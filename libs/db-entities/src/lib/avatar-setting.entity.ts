@@ -5,8 +5,8 @@ import {
   OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { UserEntity } from '../../user/entities/user.entity';
 import { Exclude } from 'class-transformer';
+import { UserEntity } from './user.entity';
 
 @Entity('avatar_settings')
 export class AvatarSettingEntity {

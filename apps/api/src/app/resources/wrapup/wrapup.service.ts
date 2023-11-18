@@ -2,9 +2,8 @@ import { forwardRef, Inject, Injectable } from '@nestjs/common';
 import { CreateWrapupDto } from './dto/create-wrapup.dto';
 import { UpdateWrapupDto } from './dto/update-wrapup.dto';
 import { InjectRepository } from '@nestjs/typeorm';
-import { ProjectEntity } from '../project/entities/project.entity';
+import { ProjectEntity, WrapupEntity } from '@wrapup/db-entities';
 import { Between, Repository } from 'typeorm';
-import { WrapupEntity } from './entities/wrapup.entity';
 import { DateTime } from 'luxon';
 import { ProjectService } from '../project/project.service';
 

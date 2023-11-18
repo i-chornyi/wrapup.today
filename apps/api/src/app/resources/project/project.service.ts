@@ -6,12 +6,11 @@ import {
   Injectable,
 } from '@nestjs/common';
 import { UpdateProjectDto } from './dto/update-project.dto';
-import { ProjectEntity } from './entities/project.entity';
+import { ProjectEntity, UserEntity } from '@wrapup/db-entities';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateProjectDto } from './dto/create-project.dto';
 import { WrapupService } from '../wrapup/wrapup.service';
-import { UserEntity } from '../user/entities/user.entity';
 import { UserService } from '../user/user.service';
 
 @Injectable()
