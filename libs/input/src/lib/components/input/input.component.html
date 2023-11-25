@@ -1,4 +1,4 @@
-<div>
+<div class="mb-3">
   <label
     class="mb-2 flex justify-between items-center"
     [for]="id"
@@ -9,7 +9,7 @@
   </label>
 
   <input
-    class="h-9 mb-3 w-full rounded-xl px-3 bg-gray-700 focus:outline outline-4 outline-blue"
+    class="h-9 w-full rounded-xl px-3 mb-1 bg-gray-700 focus:outline outline-4 outline-blue"
     [id]="id"
     [type]="type"
     [placeholder]="placeholder"
@@ -18,4 +18,10 @@
     [attr.data-test-id]="testId || id"
     (ngModelChange)="onChange($event)"
   />
+
+  <ng-container *ngIf="errors?.length">
+    <p *ngFor="let error of errors" class="px-3 text-red-400">
+      {{ error }}
+    </p>
+  </ng-container>
 </div>

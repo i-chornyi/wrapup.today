@@ -26,6 +26,11 @@ export class AddProjectComponent {
   ) {}
 
   save() {
+    if (!this.newProjectForm.valid) {
+      this.newProjectForm.markAsDirty();
+      return;
+    }
+
     const newProject: ProjectCreation = {
       name: this.newProjectForm.getRawValue().name,
     };

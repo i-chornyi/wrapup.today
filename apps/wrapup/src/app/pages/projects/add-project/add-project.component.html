@@ -17,7 +17,8 @@
     <wrapup-input
       formControlName="name"
       label="Project name"
-      placeholder="Project name..."
+      placeholder="My new project..."
+      [errors]="newProjectForm | formControlError : 'addProjectForm' : 'name'"
     ></wrapup-input>
 
     <div class="flex justify-end items-center gap-4 mt-8">

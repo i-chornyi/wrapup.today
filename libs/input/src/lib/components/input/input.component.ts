@@ -1,9 +1,16 @@
-import { Component, forwardRef, Input, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  forwardRef,
+  Input,
+  OnInit,
+} from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Component({
   selector: 'wrapup-input',
   templateUrl: './input.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
@@ -18,6 +25,7 @@ export class InputComponent implements OnInit, ControlValueAccessor {
   @Input() type: 'text' | 'email' | 'password' = 'text';
   @Input() isOptional = false;
   @Input() testId!: string;
+  @Input() errors: string[] = [];
 
   value: unknown;
 

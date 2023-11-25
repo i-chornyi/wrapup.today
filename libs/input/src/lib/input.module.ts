@@ -1,12 +1,13 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { InputComponent } from './input/input.component';
+import { InputComponent } from './components/input/input.component';
 import { FormsModule } from '@angular/forms';
-import { TextareaComponent } from './textarea/textarea.component';
+import { TextareaComponent } from './components/textarea/textarea.component';
+import { FormControlErrorPipe } from './pipes/form-control-error.pipe';
 
 @NgModule({
   imports: [CommonModule, FormsModule],
-  declarations: [InputComponent, TextareaComponent],
-  exports: [InputComponent, TextareaComponent],
+  declarations: [InputComponent, TextareaComponent, FormControlErrorPipe],
+  exports: [InputComponent, TextareaComponent, FormControlErrorPipe],
 })
 export class InputModule {}
