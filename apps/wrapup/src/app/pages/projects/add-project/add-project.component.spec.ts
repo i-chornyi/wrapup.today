@@ -2,6 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { AddProjectComponent } from './add-project.component';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { DIALOG_DATA, DialogRef } from '@angular/cdk/dialog';
+import { InputModule } from '@wrapup/input';
 
 describe('AddProjectComponent', () => {
   let component: AddProjectComponent;
@@ -10,7 +11,7 @@ describe('AddProjectComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [AddProjectComponent],
-      imports: [HttpClientTestingModule],
+      imports: [HttpClientTestingModule, InputModule],
       providers: [
         { provide: DialogRef, useValue: {} },
         { provide: DIALOG_DATA, useValue: [] },

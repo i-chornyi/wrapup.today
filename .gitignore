@@ -50,3 +50,5 @@ Thumbs.db
 /apps/wrapup-e2e/playwright/**/*.json
 
 /apps/data-seeder/.env
+
+.nx/cache

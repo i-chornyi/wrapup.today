@@ -9,12 +9,11 @@
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/libs/input"],
       "options": {
-        "jestConfig": "libs/input/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "libs/input/jest.config.ts"
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
+      "executor": "@nx/eslint:lint",
       "options": {
         "lintFilePatterns": ["libs/input/**/*.ts", "libs/input/**/*.html"]
       }

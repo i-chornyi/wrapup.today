@@ -9,12 +9,11 @@
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/libs/button"],
       "options": {
-        "jestConfig": "libs/button/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "libs/button/jest.config.ts"
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
+      "executor": "@nx/eslint:lint",
       "options": {
         "lintFilePatterns": ["libs/button/**/*.ts", "libs/button/**/*.html"]
       }

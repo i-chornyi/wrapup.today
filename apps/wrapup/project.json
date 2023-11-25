@@ -56,14 +56,14 @@
       "executor": "@angular-devkit/build-angular:dev-server",
       "configurations": {
         "production": {
-          "browserTarget": "wrapup:build:production"
+          "buildTarget": "wrapup:build:production"
         },
         "development": {
-          "browserTarget": "wrapup:build:development"
+          "buildTarget": "wrapup:build:development"
         },
         "e2e": {
-          "browserTarget": "wrapup:build:development",
-          "port": 4201
+          "port": 4201,
+          "buildTarget": "wrapup:build:development"
         }
       },
       "defaultConfiguration": "development",
@@ -74,11 +74,11 @@
     "extract-i18n": {
       "executor": "@angular-devkit/build-angular:extract-i18n",
       "options": {
-        "browserTarget": "wrapup:build"
+        "buildTarget": "wrapup:build"
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
+      "executor": "@nx/eslint:lint",
       "options": {
         "lintFilePatterns": ["apps/wrapup/**/*.ts", "apps/wrapup/**/*.html"]
       }
@@ -87,8 +87,7 @@
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/apps/wrapup"],
       "options": {
-        "jestConfig": "apps/wrapup/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "apps/wrapup/jest.config.ts"
       }
     }
   },
